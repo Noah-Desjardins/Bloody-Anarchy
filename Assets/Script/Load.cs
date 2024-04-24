@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Load : MonoBehaviour
 {
-    string levelToLoad = "SampleScene";
+    // Start is called before the first frame update
+    string levelToLoad = "Lobby";
     void Start()
     {
         //permet d'afficehr le jeu 
