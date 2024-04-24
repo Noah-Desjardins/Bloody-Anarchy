@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b6355a33543461c4cb584ce77f438d27
+guid: 637d693ccce9db641950b3bbadf0ed88
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 10
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -141,8 +141,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1100
-        height: 1100
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,8 +150,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 850a1f3a90f98e147b4c49a3c879726d
-      internalID: 9792398
+      spriteID: dc42be5bc7dc6714aa2f44b9c43af443
+      internalID: 1645850035
       vertices: []
       indices: 
       edges: []
@@ -160,10 +160,10 @@ TextureImporter:
       name: walking_1
       rect:
         serializedVersion: 2
-        x: 1100
+        x: 16
         y: 0
-        width: 1100
-        height: 1100
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,8 +171,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcc21907435c5b6408c7d3381c02be5c
-      internalID: -1034062066
+      spriteID: f7390b9ce49cdde45b53debbaffde460
+      internalID: -655572154
       vertices: []
       indices: 
       edges: []
@@ -180,7 +180,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: b4e01405a240cfe4ca691996e73c6e93
+    spriteID: b0eae7d184ecbf04784575f16c6cd712
     internalID: 0
     vertices: []
     indices: 
@@ -188,8 +188,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      walking_0: 9792398
-      walking_1: -1034062066
+      walking_0: 1645850035
+      walking_1: -655572154
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

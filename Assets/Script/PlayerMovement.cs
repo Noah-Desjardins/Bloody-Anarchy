@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     void Deplacement()
     {
         animator.SetBool("walking", true);
-        rb.MovePosition((rb.position + direction.normalized * vitesseDeplacement * Time.deltaTime));
+        rb.MovePosition((rb.position + direction.normalized * vitesseDeplacement * Time.fixedDeltaTime));
     }
     public void Move(InputAction.CallbackContext context)
     {

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 40c5396501b0ceb4fbf9161896f7f2ed
+guid: d55e25367dd8b044297038fe09f550d1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 10
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -136,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pixilart-sprite (2)_0
+      name: idle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1100
-        height: 1100
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 780b7d1ea79f4de4c9503ccd9f2c04f4
-      internalID: 264374916
+      spriteID: cc3f587bead879d45a7190fd34a9ee3f
+      internalID: -1932898592
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixilart-sprite (2)_1
+      name: idle_1
       rect:
         serializedVersion: 2
-        x: 1100
+        x: 16
         y: 0
-        width: 1100
-        height: 1100
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,8 +171,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b70d8a0e59b2d7647af0d603a40a35f1
-      internalID: -1519847669
+      spriteID: b391f709caf65d5409f7a208cb54cdd6
+      internalID: -847120825
       vertices: []
       indices: 
       edges: []
@@ -180,7 +180,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: a6aa157d2f0bd154193432095572fd88
+    spriteID: 358154fd1e4712f44ae34b57e3f218cf
     internalID: 0
     vertices: []
     indices: 
@@ -188,8 +188,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      pixilart-sprite (2)_0: 264374916
-      pixilart-sprite (2)_1: -1519847669
+      idle_0: -1932898592
+      idle_1: -847120825
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
