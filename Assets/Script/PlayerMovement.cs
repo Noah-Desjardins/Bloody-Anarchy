@@ -34,11 +34,13 @@ public class PlayerMovement : MonoBehaviour
     }
     void Deplacement()
     {
+        print("ddd");
         animator.SetBool("walking", true);
         rb.MovePosition((rb.position + direction.normalized * vitesseDeplacement * Time.deltaTime));
     }
     public void Move(InputAction.CallbackContext context)
     {
+        print("ddd");
         direction = context.ReadValue<Vector2>();
     }
 }
