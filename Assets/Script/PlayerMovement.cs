@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer sr;
     Animator animator;
+    [SerializeField] GameObject ShopUI;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Move(InputAction.CallbackContext context)
     {
-        direction = context.ReadValue<Vector2>();
+        if(!ShopUI.activeSelf)
+            direction = context.ReadValue<Vector2>();
     }
 }
