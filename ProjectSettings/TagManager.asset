@@ -6,6 +6,8 @@ TagManager:
   tags:
   - GameManager
   - player
+  - Event
+  - ShopUI
   layers:
   - Default
   - TransparentFX
