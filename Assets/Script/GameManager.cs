@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        print("salut");
         StartCoroutine(uicontroller.Fade(false));
     }
 
