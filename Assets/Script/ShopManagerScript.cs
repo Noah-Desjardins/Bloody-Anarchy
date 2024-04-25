@@ -9,7 +9,8 @@ using UnityEngine.UI;
 
 public class ShopManagerScript : MonoBehaviour
 {
-    public int[,] shopItem = new int[4,2];
+    [SerializeField] int[] pris;
+    public int[,] shopItem = new int[3,3];
     [SerializeField] float pourcentage;
     [SerializeField] TextMeshProUGUI PourcentageTxt;
     [SerializeField] GameObject Shop;
@@ -18,14 +19,16 @@ public class ShopManagerScript : MonoBehaviour
     {
         PourcentageTxt.text = "Vous avec fait " + pourcentage.ToString() + "% du boss";
 
-        //mettre les ID
-        shopItem[1, 1] = 1;
 
-        //mettre les prix
-        shopItem[2, 1] = 1;
+        for (int i = 1; i < shopItem.GetLength(1); i++)
+        {
+            //mettre les id
+            shopItem[1, i] = i;
 
-        //quantité acheter
-        shopItem[3, 1] = 0;
+            //mettre les prix
+            shopItem[2, i] = pris[i - 1];
+        }
+
     }
 
     // Update is called once per frame
@@ -35,8 +38,7 @@ public class ShopManagerScript : MonoBehaviour
 
         if (pourcentage >= shopItem[2, ButtonRef.GetComponent<ItemInfo>().ItemID])
         {
-            shopItem[3, ButtonRef.GetComponent<ItemInfo>().ItemID] = 1;
-            ButtonRef.GetComponent<ItemInfo>().Desactiver();
+            ButtonRef.GetComponent<ItemInfo>().Acheter();
         }
     }
 
