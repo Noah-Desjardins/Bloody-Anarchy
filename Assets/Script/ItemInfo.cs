@@ -30,7 +30,7 @@ public class ItemInfo : MonoBehaviour
                 Player.vie += 150;
                 break;
             case 2:
-                Player.degat += 4;
+                Player.degat += 19;
                 break;
             case 3:
                 break;

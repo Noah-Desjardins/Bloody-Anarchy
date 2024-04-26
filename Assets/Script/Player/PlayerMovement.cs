@@ -22,10 +22,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (direction.x > direction.y)
+        if (direction.x > 0)
             sr.flipX = false;
             
-        if (direction.y > direction.x)
+        if (direction.x < 0)
             sr.flipX = true;
         if (direction.magnitude > 0)
             Deplacement();
@@ -36,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
     void Deplacement()
     {
         animator.SetBool("walking", true);
+        if (ShopUI.activeSelf)
+            direction = new Vector2(0, 0);
         rb.MovePosition((rb.position + direction.normalized * vitesseDeplacement * Time.fixedDeltaTime));
     }
     public bool flipped()

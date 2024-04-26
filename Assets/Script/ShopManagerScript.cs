@@ -10,13 +10,14 @@ using UnityEngine.UI;
 public class ShopManagerScript : MonoBehaviour
 {
     [SerializeField] int[] pris;
-    public int[,] shopItem = new int[3,3];
+    public int[,] shopItem ;
     [SerializeField] float pourcentage;
     [SerializeField] TextMeshProUGUI PourcentageTxt;
     [SerializeField] GameObject Shop;
 
     void Start()
     {
+        shopItem = new int[3, pris.Length + 1];
         PourcentageTxt.text = "Vous avec fait " + pourcentage.ToString() + "% du boss";
 
 
