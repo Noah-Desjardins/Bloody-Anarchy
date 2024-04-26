@@ -16,9 +16,10 @@ GameObject:
   - component: {fileID: 4857620885660825387}
   - component: {fileID: 366956293639622174}
   - component: {fileID: 6533745429462266168}
+  - component: {fileID: 6866048750254716102}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 1488671037941934073}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19, y: -0.45, z: -1}
+  m_LocalPosition: {x: 0.09, y: -0.45, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -78,8 +79,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cdc8d2efc0db2114799dbd3666b0401d, type: 3}
+  m_SortingOrder: -1
+  m_Sprite: {fileID: -1932898592, guid: d55e25367dd8b044297038fe09f550d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,6 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c41a8ebb6636a3e4da2a45030139cdcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vie: 100
+  degat: 1
 --- !u!114 &7223210625103677052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,11 +147,35 @@ MonoBehaviour:
     m_ActionId: e044bea3-821c-4e1a-b090-fe34e19ce816
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6866048750254716102}
+        m_TargetAssemblyTypeName: PlayerMelee, Assembly-CSharp
+        m_MethodName: Attack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 17fe0f28-e1cc-4e19-a5df-714b6a2af844
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1080970867346457951}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: Roll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 5e4817c3-c4a8-4f82-ac31-6fed7721cb96
     m_ActionName: Player/Roll[/Keyboard/space]
   - m_PersistentCalls:
@@ -208,7 +235,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5477d3da3fa388f4a89e02f094567b57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vitesseDeplacement: 15
+  vitesseDeplacement: 5
+  rollSpeed: 10
+  speed: 0
+  ShopUI: {fileID: 0}
 --- !u!95 &4857620885660825387
 Animator:
   serializedVersion: 5
@@ -262,18 +292,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00733009, y: -0.36651206}
+  m_Offset: {x: 0.0018166304, y: -0.45000386}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.4628571, y: 1.4628571}
+    oldSize: {x: 1.6, y: 1.6}
     newSize: {x: 5.12, y: 5.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7298334, y: 0.7298329}
+  m_Size: {x: 0.60596085, y: 0.7070421}
   m_EdgeRadius: 0
 --- !u!50 &6533745429462266168
 Rigidbody2D:
@@ -302,3 +332,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6866048750254716102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488671037941934073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a3447c90bf5c5b47be933d671817dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPrefab: {fileID: 4519181844315547791, guid: f9995d46d64ae33408635579c9b346ab, type: 3}
+  damageZone: {fileID: 0}
+  shop: {fileID: 0}

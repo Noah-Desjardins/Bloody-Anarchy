@@ -13,7 +13,7 @@ public class PlayerMelee : MonoBehaviour
     GameObject temp;
     [SerializeField] GameObject attackPrefab;
     [SerializeField] damageZone damageZone;
-    [SerializeField] GameObject shop;
+    [SerializeField] GameObject? shop;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +29,7 @@ public class PlayerMelee : MonoBehaviour
     }
     public void Attack(InputAction.CallbackContext context)
     {
-        if(!shop.activeSelf)
+        if (!shop.activeSelf) 
         {
             if (context.started)
             {
