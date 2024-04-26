@@ -8141,6 +8141,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 291231689}
     - target: {fileID: 1080970867346457951, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: rollSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080970867346457951, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       propertyPath: vitesseDeplacement
       value: 5
       objectReference: {fileID: 0}

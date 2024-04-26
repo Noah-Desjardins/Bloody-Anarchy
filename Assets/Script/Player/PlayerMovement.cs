@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         if (context.started)
-            if (direction.magnitude != 0)
+            if (direction.magnitude != 0 && !animator.GetCurrentAnimatorStateInfo(0).IsName("roll"))
             {
                 animator.SetTrigger("roll");
             }
