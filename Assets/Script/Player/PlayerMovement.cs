@@ -38,6 +38,10 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("walking", true);
         rb.MovePosition((rb.position + direction.normalized * vitesseDeplacement * Time.fixedDeltaTime));
     }
+    public bool flipped()
+    {
+        return sr.flipX;
+    }
     public void Move(InputAction.CallbackContext context)
     {
         if(!ShopUI.activeSelf)
