@@ -9,6 +9,7 @@ public class PlayerMelee : MonoBehaviour
     SpriteRenderer sr;
     SpriteRenderer attackZone;
     Animator animator;
+    PlayerMovement playerMovement;
     GameObject temp;
     [SerializeField] GameObject attackPrefab;
     [SerializeField] damageZone damageZone;
@@ -17,6 +18,7 @@ public class PlayerMelee : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -28,10 +30,22 @@ public class PlayerMelee : MonoBehaviour
     {
         if (context.started)
         {
-            if (sr.flipX)
-                Instantiate(attackPrefab,new Vector3(transform.position.x - sr.bounds.size.x / 1.7f, transform.position.y, transform.position.z),quaternion.identity,transform);
+            if (playerMovement.direction.y == 1)
+            {
+                Instantiate(attackPrefab, new Vector3(transform.position.x - 0.2f, transform.position.y + sr.bounds.size.y / 2f, transform.position.z), Quaternion.Euler(0, 0, 90), transform);
+            }
+            else if (playerMovement.direction.y == -1)
+            {
+                Instantiate(attackPrefab, new Vector3(transform.position.x + 0.2f, transform.position.y - sr.bounds.size.y / 2f, transform.position.z), Quaternion.Euler(0, 0, -90), transform);
+            }
             else
-                Instantiate(attackPrefab, new Vector3(transform.position.x + sr.bounds.size.x/1.7f, transform.position.y, transform.position.z), quaternion.identity, transform);
+            {
+                if (sr.flipX)
+                    Instantiate(attackPrefab,new Vector3(transform.position.x - sr.bounds.size.x / 2f, transform.position.y, transform.position.z),quaternion.identity,transform);
+                else
+                    Instantiate(attackPrefab, new Vector3(transform.position.x + sr.bounds.size.x/2f, transform.position.y, transform.position.z), quaternion.identity, transform);
+            }
+
 
             animator.SetTrigger("sideAttack");
         }
