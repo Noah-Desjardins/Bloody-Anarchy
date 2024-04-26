@@ -18,7 +18,7 @@ public class ShopManagerScript : MonoBehaviour
     void Start()
     {
         shopItem = new int[3, pris.Length + 1];
-        PourcentageTxt.text = "Vous avec fait " + pourcentage.ToString() + "% du boss";
+        PourcentageTxt.text = "Vous avez fait " + pourcentage.ToString() + "% du boss";
 
 
         for (int i = 1; i < shopItem.GetLength(1); i++)

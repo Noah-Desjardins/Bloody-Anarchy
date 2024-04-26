@@ -13,6 +13,7 @@ public class PlayerMelee : MonoBehaviour
     GameObject temp;
     [SerializeField] GameObject attackPrefab;
     [SerializeField] damageZone damageZone;
+    [SerializeField] GameObject shop;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,27 +29,29 @@ public class PlayerMelee : MonoBehaviour
     }
     public void Attack(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if(!shop.activeSelf)
         {
-            if (playerMovement.direction.y == 1)
+            if (context.started)
             {
-                Instantiate(attackPrefab, new Vector3(transform.position.x - 0.2f, transform.position.y + sr.bounds.size.y / 2f, transform.position.z), Quaternion.Euler(0, 0, 90), transform);
-            }
-            else if (playerMovement.direction.y == -1)
-            {
-                Instantiate(attackPrefab, new Vector3(transform.position.x + 0.2f, transform.position.y - sr.bounds.size.y / 2f, transform.position.z), Quaternion.Euler(0, 0, -90), transform);
-            }
-            else
-            {
-                if (sr.flipX)
-                    Instantiate(attackPrefab,new Vector3(transform.position.x - sr.bounds.size.x / 2f, transform.position.y, transform.position.z),quaternion.identity,transform);
+                if (playerMovement.direction.y == 1)
+                {
+                    Instantiate(attackPrefab, new Vector3(transform.position.x - 0.2f, transform.position.y + sr.bounds.size.y / 2f, transform.position.z), Quaternion.Euler(0, 0, 90), transform);
+                }
+                else if (playerMovement.direction.y == -1)
+                {
+                    Instantiate(attackPrefab, new Vector3(transform.position.x + 0.2f, transform.position.y - sr.bounds.size.y / 2f, transform.position.z), Quaternion.Euler(0, 0, -90), transform);
+                }
                 else
-                    Instantiate(attackPrefab, new Vector3(transform.position.x + sr.bounds.size.x/2f, transform.position.y, transform.position.z), quaternion.identity, transform);
+                {
+                    if (sr.flipX)
+                        Instantiate(attackPrefab, new Vector3(transform.position.x - sr.bounds.size.x / 2f, transform.position.y, transform.position.z), quaternion.identity, transform);
+                    else
+                        Instantiate(attackPrefab, new Vector3(transform.position.x + sr.bounds.size.x / 2f, transform.position.y, transform.position.z), quaternion.identity, transform);
+                }
+
+
+                animator.SetTrigger("sideAttack");
             }
-
-
-            animator.SetTrigger("sideAttack");
-        }
-            
+        }    
     }
 }
