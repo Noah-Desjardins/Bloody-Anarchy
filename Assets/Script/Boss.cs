@@ -90,7 +90,7 @@ public class Boss : MonoBehaviour
         // Instantier projectile and lancer vers joueur
         GameObject projectile = Instantiate(swordProjectilePrefab, transform.position, Quaternion.identity);
         Vector3 direction = (player.position - transform.position).normalized;
-        projectile.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
+        projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
     }
 
     private void MoveRandomly()
