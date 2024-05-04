@@ -8,6 +8,8 @@ TagManager:
   - player
   - Event
   - ShopUI
+  - canRoll
+  - canSlash
   layers:
   - Default
   - TransparentFX

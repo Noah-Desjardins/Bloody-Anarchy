@@ -14,17 +14,33 @@ public class PlayerMovement : MonoBehaviour
     SpriteRenderer sr;
     Animator animator;
     [SerializeField] GameObject ShopUI;
+
+    PlayerAbility playerAbility;
+    [SerializeField] GameObject abilityContainer;
+    Cooldown rollingCooldown;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
         speed = vitesseDeplacement;
+        playerAbility = GetComponent<PlayerAbility>();
     }
-
+    public void setRollingCooldown()
+    {
+        foreach (Cooldown cooldown in abilityContainer.GetComponentsInChildren<Cooldown>())
+        {
+            if (cooldown.tag == "canRoll")
+                rollingCooldown = cooldown;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        if (rollingCooldown == null && playerAbility.GetAbility("canRoll"))
+            setRollingCooldown();
+
         if (direction.x > 0)
             sr.flipX = false;
             
@@ -35,10 +51,8 @@ public class PlayerMovement : MonoBehaviour
             Deplacement();
             rollBoost();
         }
-            
         else
             animator.SetBool("walking", false);
-        
 
     }
     void Deplacement()
@@ -76,12 +90,15 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Roll(InputAction.CallbackContext context)
     {
-
-        if (context.started)
+        if (playerAbility.GetAbility("canRoll") && context.started && !rollingCooldown.isCoolingDown)
+        {
             if (direction.magnitude != 0 && !animator.GetCurrentAnimatorStateInfo(0).IsName("roll"))
             {
+                rollingCooldown.StartCoolDown();
                 animator.SetTrigger("roll");
             }
+        }
+
                 
     }
 }
