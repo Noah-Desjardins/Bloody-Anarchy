@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,6 +46,37 @@ public class UIController : MonoBehaviour
 
                 color = new Color(color.r, color.g, color.b, fadeState);
                 FadeSquare.GetComponent<Image>().color = color;
+                yield return null;
+            }
+        }
+    }
+    public IEnumerator FadeText(bool fade = true, float fadeSpeed = 1f)
+    {
+        Color color = FadeSquare.GetComponent<TextMeshProUGUI>().color;
+        float fadeState;
+        if (fade)
+        {
+            color = new Color(color.r, color.g, color.b, 0);
+            //FadeSquare.GetComponent<TextMeshProUGUI>().color = color;
+            while (FadeSquare.GetComponent<TextMeshProUGUI>().color.a < 1)
+            {
+                fadeState = color.a + (fadeSpeed * Time.deltaTime);
+
+                color = new Color(color.r, color.g, color.b, fadeState);
+                FadeSquare.GetComponent<TextMeshProUGUI>().color = color;
+                yield return null;
+            }
+        }
+        else
+        {
+            color = new Color(color.r, color.g, color.b, 1);
+            //FadeSquare.GetComponent<TextMeshProUGUI>().color = color;
+            while (FadeSquare.GetComponent<TextMeshProUGUI>().color.a > 0)
+            {
+                fadeState = color.a - (fadeSpeed * Time.deltaTime);
+
+                color = new Color(color.r, color.g, color.b, fadeState);
+                FadeSquare.GetComponent<TextMeshProUGUI>().color = color;
                 yield return null;
             }
         }

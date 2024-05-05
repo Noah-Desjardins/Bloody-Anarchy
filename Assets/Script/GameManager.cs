@@ -6,10 +6,14 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] UIController uicontroller;
+    [SerializeField] bool fadeText = false;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(uicontroller.Fade(false));
+        if(fadeText)
+            StartCoroutine(uicontroller.FadeText(false));
+        else
+            StartCoroutine(uicontroller.Fade(false));
     }
 
     // Update is called once per frame

@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] GameObject boss;
     Camera camera;
+    public bool afficherJoueur = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,10 @@ public class CameraController : MonoBehaviour
         Vector3 positionJoueur = new Vector3 (player.transform.position.x, player.transform.position.y, transform.position.z);
         float disanceX = positionBoss.x - positionJoueur.x;
         float distanceY = positionBoss.y - positionJoueur.y;
-        transform.position = new Vector3(positionJoueur.x,positionJoueur.y,-10);
+        if(afficherJoueur)
+            transform.position = new Vector3(positionJoueur.x,positionJoueur.y,-10);
+        else
+            transform.position = new Vector3(positionBoss.x, positionBoss.y, -10);
         //transform.position = new Vector3((positionBoss.x + positionJoueur.x)/2, (positionBoss.y + positionJoueur.y)/ 2, transform.position.z);
         //camera.orthographicSize = disanceX / 3.2f + distanceY / 1.6f;
         //if (camera.orthographicSize < 5)
