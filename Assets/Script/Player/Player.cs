@@ -13,5 +13,19 @@ public class Player : MonoBehaviour
     void Update()
     {
         
+        if (vie <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "sword")
+        {
+            projectileGuide projectile = collision.GetComponent<projectileGuide>();
+            vie -= projectile.degat;
+        }
+    }
+
 }
