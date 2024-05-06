@@ -10,6 +10,7 @@ TagManager:
   - ShopUI
   - canRoll
   - canSlash
+  - sword
   layers:
   - Default
   - TransparentFX

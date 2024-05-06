@@ -13,6 +13,7 @@ public class BossPhaseUn : MonoBehaviour
     [SerializeField] UIController uicontroller;
     [SerializeField] float vitesse = 4;
     bool bossPret = false;
+    bool peutBouger = true;
     CameraController camController;
     [SerializeField] GameObject empecherMoveJoueur;
     [SerializeField] float distanceEsquive = 10;
@@ -29,11 +30,14 @@ public class BossPhaseUn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bossPret)
+        if (bossPret && target != null)
         {
             Vector3 VectorPos = target.transform.position - transform.position;
             if (VectorPos.magnitude > 2)
-                transform.Translate(VectorPos.normalized * vitesse * Time.deltaTime);
+            {
+                if (peutBouger)
+                    transform.Translate(VectorPos.normalized * vitesse * Time.deltaTime);
+            }
         }
     }
     IEnumerator ApparaitreBoss()
@@ -50,21 +54,69 @@ public class BossPhaseUn : MonoBehaviour
     }
     IEnumerator Attack()
     {
-        yield return new WaitForSeconds(2);
-        int attack = Random.Range(0, 3);
-        switch (attack)
+        if (bossPret && target != null)
         {
-            case 0:
+            yield return new WaitForSeconds(7);
+            int attack = Random.Range(0, 1);
+            switch (attack)
+            {
+                case 0:
+                    StartCoroutine(Attack1());
+                    yield return new WaitForSeconds(10f);
+                    break;
+                case 1:
 
-                break;
-            case 1:
+                    break;
+                case 2:
 
-                break;
-            case 2:
-
-                break;
+                    break;
+            }
         }
+        yield return null;
         StartCoroutine(Attack());
+    }
+    IEnumerator Attack1()
+    {
+        peutBouger = false;
+        float nombreDeBalle = 15;
+        for (int i = 0; i < 2; i++)
+        {
+            while (nombreDeBalle > 0)
+            {
+                yield return new WaitForSeconds(0.2f);
+                GameObject projectileTemp = ObjectPool.instance.GetPoolObject(projectile);
+                if (projectileTemp != null)
+                {
+                    projectileTemp.transform.position = transform.position;
+                    projectileTemp.transform.rotation = transform.rotation;
+                    projectileTemp.SetActive(true);
+                }
+                nombreDeBalle--;
+            }
+            nombreDeBalle = 15;
+            if (i == 0)
+                yield return new WaitForSeconds(2f);
+        }
+        peutBouger = true;
+    }
+    IEnumerator Attack2()
+    {
+        peutBouger = false;
+        float nombreDeBalle = 5;
+
+        while (nombreDeBalle > 0)
+        {
+            yield return new WaitForSeconds(0.2f);
+            GameObject projectileTemp = ObjectPool.instance.GetPoolObject(projectile);
+            if (projectileTemp != null)
+            {
+                projectileTemp.transform.position = transform.position;
+                projectileTemp.transform.rotation = transform.rotation;
+                projectileTemp.SetActive(true);
+            }
+            nombreDeBalle--;
+        }
+        peutBouger = true;
     }
     IEnumerator Esquive()
     {
@@ -78,20 +130,35 @@ public class BossPhaseUn : MonoBehaviour
             case 1:
                 StartCoroutine(EssquiveGauche());
                 break;
-            case 2:
-
-                break;
         }
         StartCoroutine(Esquive());
     }
     IEnumerator EssquiveDroite()
     {
-        transform.Translate(Vector2.right * distanceEsquive);
+        int hautaur = Random.Range(0, 2);
+        switch (hautaur)
+        {
+            case 0:
+                transform.Translate(Vector2.right * distanceEsquive + Vector2.up * distanceEsquive / 2);
+                break;
+            case 1:
+                transform.Translate(Vector2.right * distanceEsquive + Vector2.down * distanceEsquive / 2);
+                break;
+        }
         yield return null;
     }
     IEnumerator EssquiveGauche()
     {
-        transform.Translate(Vector2.left * 10);
+        int hautaur = Random.Range(0, 2);
+        switch (hautaur)
+        {
+            case 0:
+                transform.Translate(Vector2.left * distanceEsquive + Vector2.up * distanceEsquive / 2);
+                break;
+            case 1:
+                transform.Translate(Vector2.left * distanceEsquive + Vector2.down * distanceEsquive / 2);
+                break;
+        }
         yield return null;
     }
 }
