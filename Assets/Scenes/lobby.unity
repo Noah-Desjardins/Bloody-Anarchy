@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -439,6 +439,17 @@ Transform:
   - {fileID: 1222932227}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &190806943 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5312140187189892881, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+  m_PrefabInstance: {fileID: 4219119396308658058}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e858338ed4db68243806bca0954e36c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &199273537
 GameObject:
   m_ObjectHideFlags: 0
@@ -8112,6 +8123,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 722053824778704094, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 722053824778704094, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 722053824778704094, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 190806943}
+    - target: {fileID: 722053824778704094, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 722053824778704094, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 722053824778704094, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PlayerShoot, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 722053824778704094, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2387030836747031327, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       propertyPath: ShopUI
       value: 
@@ -8121,9 +8160,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3157715149170653934}
     - target: {fileID: 4227506980278976394, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: canShoot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227506980278976394, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: canSlash
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227506980278976394, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       propertyPath: abilityContainer
       value: 
       objectReference: {fileID: 8620950800430072069}
+    - target: {fileID: 5312140187189892881, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: shop
+      value: 
+      objectReference: {fileID: 291231689}
+    - target: {fileID: 5312140187189892881, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: abilityContainer
+      value: 
+      objectReference: {fileID: 3157715149170653934}
     - target: {fileID: 6322911830811641988, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       propertyPath: m_Name
       value: Player
