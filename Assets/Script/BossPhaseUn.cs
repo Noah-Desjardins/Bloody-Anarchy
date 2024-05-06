@@ -85,7 +85,7 @@ public class BossPhaseUn : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.2f);
                 GameObject projectileTemp = ObjectPool.instance.GetPoolObject(projectile);
-                if (projectileTemp != null)
+                if (projectileTemp != null && target != null)
                 {
                     projectileTemp.transform.position = transform.position;
                     projectileTemp.transform.rotation = transform.rotation;
