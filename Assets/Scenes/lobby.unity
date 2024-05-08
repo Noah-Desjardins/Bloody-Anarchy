@@ -444,7 +444,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5312140187189892881, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
   m_PrefabInstance: {fileID: 4219119396308658058}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 754226465}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e858338ed4db68243806bca0954e36c1, type: 3}
@@ -460,6 +460,7 @@ GameObject:
   m_Component:
   - component: {fileID: 199273538}
   - component: {fileID: 199273539}
+  - component: {fileID: 199273540}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -496,6 +497,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uicontroller: {fileID: 1250222774}
   fadeText: 0
+--- !u!114 &199273540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199273537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8fe6abf316333e4eb48aead8a988d02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objetsAPool:
+  - {fileID: 7115204580150724059, guid: 28b994a86273ba948aa22ac5e34cf9e0, type: 3}
+  nombreAPool: 19000000
 --- !u!1 &240669710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,6 +1913,23 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &754226465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6322911830811641988, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+  m_PrefabInstance: {fileID: 4219119396308658058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &754226476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754226465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8208dc6f36b414c9a7931c0a4d4395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &763715485
 GameObject:
   m_ObjectHideFlags: 0
@@ -8171,10 +8204,26 @@ PrefabInstance:
       propertyPath: abilityContainer
       value: 
       objectReference: {fileID: 8620950800430072069}
+    - target: {fileID: 4227506980278976394, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: AbilitiesPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4227506980278976394, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: AbilitiesPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 8433461123506007845, guid: 6aeacc97cf6d810468da176725f98cb8, type: 3}
     - target: {fileID: 5312140187189892881, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       propertyPath: shop
       value: 
       objectReference: {fileID: 291231689}
+    - target: {fileID: 5312140187189892881, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 7115204580150724059, guid: 28b994a86273ba948aa22ac5e34cf9e0, type: 3}
+    - target: {fileID: 5312140187189892881, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: shootingCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: a82de41cb80850842ad6f0d2dfa8ca92, type: 3}
     - target: {fileID: 5312140187189892881, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       propertyPath: abilityContainer
       value: 
@@ -8186,7 +8235,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6322911830811641988, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 754226476}
   m_SourcePrefab: {fileID: 100100000, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
 --- !u!224 &8004820876599567113
 RectTransform:
@@ -8202,10 +8254,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1263692133}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 308.2, y: -160.21}
-  m_SizeDelta: {x: 503.97, y: 115.41}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -91.79999, y: 64.78999}
+  m_SizeDelta: {x: 503.96997, y: 115.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8620950800430072069
 MonoBehaviour:

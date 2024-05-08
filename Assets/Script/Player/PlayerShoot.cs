@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class PlayerShoot : MonoBehaviour
 
     SpriteRenderer sr;
     Animator animator;
-    [SerializeField] Bullet bulletPrefab; // Ici ça va être bullet
+    [SerializeField] GameObject bulletPrefab; // Ici ça va être bullet
     [SerializeField] GameObject? shop;
 
     PlayerAbility playerAbility;
@@ -19,6 +20,10 @@ public class PlayerShoot : MonoBehaviour
     Vector3 mousePosition = Vector3.zero;
     Quaternion bulletRotation = Quaternion.identity;
 
+    [SerializeField] Texture2D shootingCursor;
+    PlayerCursor playerCursor;
+
+    bool isShooting = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +31,12 @@ public class PlayerShoot : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
         playerAbility = GetComponent<PlayerAbility>();
+        playerCursor = GetComponent<PlayerCursor>();
+        if (playerAbility.GetAbility("canShoot"))
+        {
+            playerCursor.setCursor(shootingCursor);
+
+        }
     }
 
     // Update is called once per frame
@@ -33,6 +44,8 @@ public class PlayerShoot : MonoBehaviour
     {
         if (shootingCooldown == null && playerAbility.GetAbility("canShoot"))
             setShootingCooldown();
+        if (isShooting)
+            Shoot();
     }
     public void setShootingCooldown()
     {
@@ -42,28 +55,36 @@ public class PlayerShoot : MonoBehaviour
                 shootingCooldown = cooldown;
         }
     }
-    public void Attack(InputAction.CallbackContext context)
+    public void Shoot()
     {
-        
         if (!shop.activeSelf)
         {
-            if (context.started && playerAbility.GetAbility("canShoot") /*&& !shootingCooldown.isCoolingDown*/)
+            if (playerAbility.GetAbility("canShoot") && !shootingCooldown.isCoolingDown)
             {
                 mousePosition = Input.mousePosition;
                 mousePosition = cam.ScreenToWorldPoint(mousePosition);
-                print(mousePosition);
-                Vector3 v = mousePosition - transform.position;
-                bulletRotation = Quaternion.LookRotation(Vector3.forward, v);
-                //shootingCooldown.StartCoolDown();
 
-                //METTRE DANS UN OBJECT POOL OUBLIE PAS DU CON!
-                    if (sr.flipX)
-                        Instantiate(bulletPrefab, new Vector3(transform.position.x - sr.bounds.size.x / 2f, transform.position.y, transform.position.z), bulletRotation);
-                    else
-                       Instantiate(bulletPrefab, new Vector3(transform.position.x + sr.bounds.size.x / 2f, transform.position.y, transform.position.z), bulletRotation);
+                GameObject bulletTemp = ObjectPool.instance.GetPoolObject(bulletPrefab);
+                shootingCooldown.StartCoolDown();
+                if (sr.flipX)
+                {
+                    bulletTemp.transform.position = new Vector3(transform.position.x - sr.bounds.size.x / 2f, transform.position.y, transform.position.z);
 
+                }
+                else
+                {
+                    bulletTemp.transform.position = new Vector3(transform.position.x + sr.bounds.size.x / 2f, transform.position.y, transform.position.z);
+                }
+                bulletRotation = Quaternion.LookRotation(Vector3.forward, mousePosition - bulletTemp.transform.position);
+                bulletTemp.transform.rotation = bulletRotation;
+                bulletTemp.SetActive(true);
                 //animator.SetTrigger("sideAttack");
             }
         }
+    }
+    public void Attack(InputAction.CallbackContext context)
+    {
+
+        isShooting = context.ReadValue<float>() > 0;
     }
 }

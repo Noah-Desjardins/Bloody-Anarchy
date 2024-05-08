@@ -11,6 +11,8 @@ TagManager:
   - canRoll
   - canSlash
   - bullet
+  - sword
+  - canShoot
   layers:
   - Default
   - TransparentFX
