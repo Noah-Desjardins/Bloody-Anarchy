@@ -8,12 +8,14 @@ public class Player : MonoBehaviour
 {
     public int vie = 100;
     public int degat = 1;
+    [SerializeField] int explosionDegat = 25;
+    [SerializeField] bool godMode = false;
 
     // Update is called once per frame
     void Update()
     {
         
-        if (vie <= 0)
+        if (vie <= 0 && godMode == false)
         {
             Destroy(gameObject);
         }
@@ -25,6 +27,14 @@ public class Player : MonoBehaviour
         {
             projectileGuide projectile = collision.GetComponent<projectileGuide>();
             vie -= projectile.degat;
+        }
+        else if(collision.tag == "Explosion")
+        {
+            vie -= explosionDegat;
+        }
+        else if (collision.tag == "AttackBoss1")
+        {
+            print("aouch");
         }
     }
 

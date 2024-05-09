@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossPhaseUn : MonoBehaviour
@@ -9,7 +10,9 @@ public class BossPhaseUn : MonoBehaviour
     Rigidbody2D rb;
     [SerializeField] int attack = 5;
     [SerializeField] GameObject projectile;
+    [SerializeField] GameObject explosionSign;
     [SerializeField] GameObject target;
+    [SerializeField] GameObject damageZone;
     [SerializeField] UIController uicontroller;
     [SerializeField] float vitesse = 4;
     bool bossPret = false;
@@ -17,6 +20,8 @@ public class BossPhaseUn : MonoBehaviour
     CameraController camController;
     [SerializeField] GameObject empecherMoveJoueur;
     [SerializeField] float distanceEsquive = 10;
+    [SerializeField] float vitesseAttack = 2;
+    float vitesseAttackRestant;
     void Start()
     {
         camController = FindAnyObjectByType<CameraController>();
@@ -25,6 +30,7 @@ public class BossPhaseUn : MonoBehaviour
         StartCoroutine(Esquive());
         StartCoroutine(Attack());
         StartCoroutine(ApparaitreBoss());
+        vitesseAttackRestant = vitesseAttack;
     }
 
     // Update is called once per frame
@@ -38,6 +44,15 @@ public class BossPhaseUn : MonoBehaviour
                 if (peutBouger)
                     transform.Translate(VectorPos.normalized * vitesse * Time.deltaTime);
             }
+            else
+            {
+                if(vitesseAttackRestant > vitesseAttack)
+                {
+                    Instantiate(damageZone, new Vector3((transform.position.x + target.transform.position.x) / 2, (transform.position.y + target.transform.position.y) / 2,0), Quaternion.LookRotation(Vector3.forward, VectorPos), transform);
+                    vitesseAttackRestant = 0;
+                }
+            }
+            vitesseAttackRestant += Time.deltaTime;
         }
     }
     IEnumerator ApparaitreBoss()
@@ -65,7 +80,8 @@ public class BossPhaseUn : MonoBehaviour
                     yield return new WaitForSeconds(10f);
                     break;
                 case 1:
-
+                    StartCoroutine(Attack2());
+                    yield return new WaitForSeconds(10f);
                     break;
                 case 2:
 
@@ -83,7 +99,6 @@ public class BossPhaseUn : MonoBehaviour
         {
             while (nombreDeBalle > 0)
             {
-                yield return new WaitForSeconds(0.2f);
                 GameObject projectileTemp = ObjectPool.instance.GetPoolObject(projectile);
                 if (projectileTemp != null && target != null)
                 {
@@ -92,6 +107,7 @@ public class BossPhaseUn : MonoBehaviour
                     projectileTemp.SetActive(true);
                 }
                 nombreDeBalle--;
+                yield return new WaitForSeconds(0.2f);
             }
             nombreDeBalle = 15;
             if (i == 0)
@@ -102,19 +118,19 @@ public class BossPhaseUn : MonoBehaviour
     IEnumerator Attack2()
     {
         peutBouger = false;
-        float nombreDeBalle = 5;
+        float nombreExplosion = 5;
 
-        while (nombreDeBalle > 0)
+        while (nombreExplosion > 0)
         {
-            yield return new WaitForSeconds(0.2f);
-            GameObject projectileTemp = ObjectPool.instance.GetPoolObject(projectile);
-            if (projectileTemp != null)
+            GameObject explosionSignTemp = ObjectPool.instance.GetPoolObject(explosionSign);
+            if (explosionSignTemp != null && target != null)
             {
-                projectileTemp.transform.position = transform.position;
-                projectileTemp.transform.rotation = transform.rotation;
-                projectileTemp.SetActive(true);
+                explosionSignTemp.transform.position = target.transform.position;
+                explosionSignTemp.transform.rotation = transform.rotation;
+                explosionSignTemp.SetActive(true);
             }
-            nombreDeBalle--;
+            nombreExplosion--;
+            yield return new WaitForSeconds(1f);
         }
         peutBouger = true;
     }

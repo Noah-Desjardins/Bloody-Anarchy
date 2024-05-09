@@ -11,6 +11,8 @@ TagManager:
   - canRoll
   - canSlash
   - sword
+  - Explosion
+  - AttackBoss1
   layers:
   - Default
   - TransparentFX
