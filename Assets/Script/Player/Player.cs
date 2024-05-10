@@ -41,12 +41,8 @@ public class Player : MonoBehaviour
             healthBar.fillAmount = (float) health / StartingHealth;
 
     }
-    public void potionManager()
-    {
 
-    }
-
-    IEnumerator InvincibilityFrames()
+    public IEnumerator InvincibilityFrames(Color color)
     {
         //Les frame d'invicibilité avant d'etre vulnérable
         invincible = true;
@@ -54,13 +50,14 @@ public class Player : MonoBehaviour
         while (nbClignotement > 0)
         {
             yield return new WaitForSeconds(0.05f);
-            sr.color = nbClignotement % 2 == 0 ? spriteColor : Color.red;
+            sr.color = nbClignotement % 2 == 0 ? spriteColor : color;
             invincible = true;
             nbClignotement--;
         }
         invincible = false;
         sr.color = spriteColor;
     }
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

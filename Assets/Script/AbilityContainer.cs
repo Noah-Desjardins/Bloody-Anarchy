@@ -7,7 +7,6 @@ public class AbilityContainer : MonoBehaviour
 {
     // Start is called before the first frame update
     public List<GameObject> allAbilities;
-    GameObject temp;
     int abilitiesCountTemp = 0;
     void Start()
     {
@@ -25,7 +24,7 @@ public class AbilityContainer : MonoBehaviour
             }
             for (int i = 0; i < allAbilities.Count; i++)
             {
-                temp = Instantiate(allAbilities[i], new Vector3(gameObject.transform.position.x + (i * -2.2f), gameObject.transform.position.y, 0), Quaternion.identity, gameObject.transform);
+                Instantiate(allAbilities[i], new Vector3(gameObject.transform.position.x + (i * -2.2f), gameObject.transform.position.y, 0), Quaternion.identity, gameObject.transform);
 
             }
             abilitiesCountTemp = allAbilities.Count;

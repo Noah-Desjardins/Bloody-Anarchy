@@ -10,12 +10,16 @@ public class PlayerAbility : MonoBehaviour
     [SerializeField] bool canRoll = false;
     [SerializeField] bool canShoot = false;
     [SerializeField] bool canSlash = false;
+    [SerializeField] bool canPotion = false;
+    [SerializeField] bool canPotionShield = false;
     // Start is called before the first frame update
     void Start()
     {
         PlayerPrefs.SetInt("canRoll", BoolToInt(canRoll));
         PlayerPrefs.SetInt("canShoot", BoolToInt(canShoot));
         PlayerPrefs.SetInt("canSlash", BoolToInt(canSlash));
+        PlayerPrefs.SetInt("canPotion", BoolToInt(canPotion));
+        PlayerPrefs.SetInt("canPotionShield", BoolToInt(canPotionShield));
         PlayerPrefs.Save();
 
         showAbility();
@@ -45,7 +49,9 @@ public class PlayerAbility : MonoBehaviour
         {
             PlayerPrefs.SetInt(abilityName, PlayerPrefs.GetInt(abilityName) == 0 ? 1:0);
             showAbility();
+            PlayerPrefs.Save();
         }
+        
     }
     public bool GetAbility(string abilityName)
     {
