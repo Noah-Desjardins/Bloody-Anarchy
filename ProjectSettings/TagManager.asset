@@ -15,6 +15,7 @@ TagManager:
   - Explosion
   - AttackBoss1
   - canShoot
+  - damageZone
   layers:
   - Default
   - TransparentFX

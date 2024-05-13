@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1508120039333704487}
   - component: {fileID: -5600300329640747048}
   - component: {fileID: 8017063132026240159}
+  - component: {fileID: 7729974091001388621}
   m_Layer: 0
   m_Name: DamageZoneBoss
   m_TagString: AttackBoss1
@@ -66,18 +67,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.2}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.032258, y: 1.032258}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &-5600300329640747048
 MonoBehaviour:
@@ -91,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98300a34c7e8cad49a512db13cc08e8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempsDeVie: 1
+  tempsDeVie: 0.4
 --- !u!212 &8017063132026240159
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -133,7 +134,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -41915522, guid: 41411311eaaf87348895da02d2cbe074, type: 3}
+  m_Sprite: {fileID: 352614976, guid: cba65d3d449a45d43852f02f130a6886, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -144,3 +145,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7729974091001388621
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7466921219814289123}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: da5004c86631eb34ba363b29881ae580, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
