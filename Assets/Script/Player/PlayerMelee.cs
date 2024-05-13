@@ -7,10 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerMelee : MonoBehaviour
 {
     SpriteRenderer sr;
-    SpriteRenderer attackZone;
     Animator animator;
     PlayerMovement playerMovement;
-    GameObject temp;
     [SerializeField] GameObject attackPrefab;
     [SerializeField] damageZone damageZone;
     [SerializeField] GameObject? shop;

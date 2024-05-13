@@ -3,38 +3,68 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public int vie = 100;
-    public int degat = 1;
-    [SerializeField] int explosionDegat = 25;
-    [SerializeField] bool godMode = false;
+    public int StartingHealth = 100;
+    public int nbPotions = 0;
+    public int health = 100;
+    public int damage = 1;
+    bool invincible = false;
+
+    SpriteRenderer sr;
+    Color spriteColor;
+
+    [SerializeField] Image healthBar;
+
+    void Start()
+    {
+        sr = GetComponent<SpriteRenderer>();
+        spriteColor = sr.color;
+
+        health = StartingHealth;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if (vie <= 0 && godMode == false)
+        HealthBarManager();
+        if (health <= 0)
         {
             Destroy(gameObject);
         }
     }
+    public void HealthBarManager()
+    {
+        if (healthBar.fillAmount * StartingHealth != health)
+            healthBar.fillAmount = (float) health / StartingHealth;
+
+    }
+
+    public IEnumerator InvincibilityFrames(Color color)
+    {
+        //Les frame d'invicibilité avant d'etre vulnérable
+        invincible = true;
+        int nbClignotement = 21;
+        while (nbClignotement > 0)
+        {
+            yield return new WaitForSeconds(0.05f);
+            sr.color = nbClignotement % 2 == 0 ? spriteColor : color;
+            invincible = true;
+            nbClignotement--;
+        }
+        invincible = false;
+        sr.color = spriteColor;
+    }
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "sword")
         {
             projectileGuide projectile = collision.GetComponent<projectileGuide>();
-            vie -= projectile.degat;
-        }
-        else if(collision.tag == "Explosion")
-        {
-            vie -= explosionDegat;
-        }
-        else if (collision.tag == "AttackBoss1")
-        {
-            print("aouch");
+            health -= projectile.degat;
         }
     }
 

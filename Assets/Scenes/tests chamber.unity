@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 90131550}
   - component: {fileID: 90131553}
   m_Layer: 0
-  m_Name: bossPhase1
+  m_Name: boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,14 +275,11 @@ MonoBehaviour:
   vie: 1000
   attack: 5
   projectile: {fileID: 7613764599475349147, guid: f04740afc818e1641a245149f8101b04, type: 3}
-  explosionSign: {fileID: 861891379883691616, guid: 3a11f56ebf6ca8f4fb9550653744aadc, type: 3}
   target: {fileID: 2141299821}
-  damageZone: {fileID: 7466921219814289123, guid: 8ed3363a89bb54046b498ce981665215, type: 3}
   uicontroller: {fileID: 1657458668}
   vitesse: 2
   empecherMoveJoueur: {fileID: 267908373}
-  distanceEsquive: 5
-  vitesseAttack: 1
+  distanceEsquive: 10
 --- !u!1 &197340720
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,7 +644,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -866,17 +863,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 525584004773631408, guid: f47c4e3145f48d9469ab1338f2c94921, type: 3}
   m_PrefabInstance: {fileID: 570264696}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1086567766 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2305329403832367036, guid: f47c4e3145f48d9469ab1338f2c94921, type: 3}
-  m_PrefabInstance: {fileID: 570264696}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086567764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bfb29a82197e024eb2febec94549a46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1657458666
 GameObject:
   m_ObjectHideFlags: 0
@@ -1173,7 +1159,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1999527012}
   - component: {fileID: 1999527011}
-  - component: {fileID: 1999527013}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1210,23 +1195,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1999527013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1999527010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8fe6abf316333e4eb48aead8a988d02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objetsAPool:
-  - {fileID: 7613764599475349147, guid: f04740afc818e1641a245149f8101b04, type: 3}
-  - {fileID: 2971525184754346135, guid: a7027c472199cd74580ef825d7867363, type: 3}
-  - {fileID: 861891379883691616, guid: 3a11f56ebf6ca8f4fb9550653744aadc, type: 3}
-  nombreAPool: 4b0000000c0000000c000000
 --- !u!1 &2141299821 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6322911830811641988, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
@@ -1248,22 +1216,6 @@ PrefabInstance:
       propertyPath: abilityContainer
       value: 
       objectReference: {fileID: 1086567764}
-    - target: {fileID: 390731517473620846, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 390731517473620846, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 390731517473620846, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 913502767079166181, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
-      propertyPath: godMode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1080970867346457951, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       propertyPath: ShopUI
       value: 
@@ -1288,10 +1240,6 @@ PrefabInstance:
       propertyPath: abilityContainer
       value: 
       objectReference: {fileID: 1086567764}
-    - target: {fileID: 4227506980278976394, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
-      propertyPath: abilityContainer
-      value: 
-      objectReference: {fileID: 1086567766}
     - target: {fileID: 6866048750254716102, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       propertyPath: shop
       value: 

@@ -27,10 +27,10 @@ public class ItemInfo : MonoBehaviour
         switch (ItemID)
         {
             case 1:
-                Player.vie += 150;
+                Player.health += 150;
                 break;
             case 2:
-                Player.degat += 19;
+                Player.damage += 19;
                 break;
             case 3:
                 break;
