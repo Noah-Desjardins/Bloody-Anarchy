@@ -119,8 +119,8 @@ public class BossPhaseDeux : MonoBehaviour
 
     IEnumerator EsquiveHaut()
     {
-        int hautaur = Random.Range(0, 2);
-        switch (hautaur)
+        int cote = Random.Range(0, 2);
+        switch (cote)
         {
             case 0:
                 transform.Translate(Vector2.up * distanceEsquive + Vector2.right * distanceEsquive / 2);
@@ -134,8 +134,8 @@ public class BossPhaseDeux : MonoBehaviour
 
     IEnumerator EsquiveBas()
     {
-        int hautaur = Random.Range(0, 2);
-        switch (hautaur)
+        int cote = Random.Range(0, 2);
+        switch (cote)
         {
             case 0:
                 transform.Translate(Vector2.down * distanceEsquive + Vector2.right * distanceEsquive / 2);
