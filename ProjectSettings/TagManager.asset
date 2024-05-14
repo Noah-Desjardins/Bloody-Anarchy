@@ -12,7 +12,10 @@ TagManager:
   - canSlash
   - bullet
   - sword
+  - Explosion
+  - AttackBoss1
   - canShoot
+  - damageZone
   layers:
   - Default
   - TransparentFX
