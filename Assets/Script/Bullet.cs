@@ -41,7 +41,6 @@ public class Bullet : MonoBehaviour
         animator.SetTrigger("hit");
         bulletCollider.enabled = false;
         hasHit = true;
-        print(explostionDuration);
         yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
     }

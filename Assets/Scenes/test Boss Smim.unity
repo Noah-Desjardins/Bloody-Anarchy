@@ -2842,7 +2842,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objetsAPool:
   - {fileID: 7115204580150724059, guid: 28b994a86273ba948aa22ac5e34cf9e0, type: 3}
-  nombreAPool: 19000000
+  - {fileID: 3134732566806855059, guid: a674ed2560812ca4e93242acdb40a25e, type: 3}
+  nombreAPool: 1900000096000000
 --- !u!114 &2002463605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3221,6 +3222,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1313877093}
+    - target: {fileID: 3713484980084633437, guid: db3e49cdbda7d63418f5b63d9da4d38c, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 3134732566806855059, guid: a674ed2560812ca4e93242acdb40a25e, type: 3}
     - target: {fileID: 3720658931128534393, guid: db3e49cdbda7d63418f5b63d9da4d38c, type: 3}
       propertyPath: m_IsTrigger
       value: 1
@@ -3245,13 +3250,17 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1313877093}
+    - target: {fileID: 6406404070178500840, guid: db3e49cdbda7d63418f5b63d9da4d38c, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 3134732566806855059, guid: a674ed2560812ca4e93242acdb40a25e, type: 3}
     - target: {fileID: 6773804843881276551, guid: db3e49cdbda7d63418f5b63d9da4d38c, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6997419545214059758, guid: db3e49cdbda7d63418f5b63d9da4d38c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.09730092
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 6997419545214059758, guid: db3e49cdbda7d63418f5b63d9da4d38c, type: 3}
       propertyPath: m_LocalPosition.y
