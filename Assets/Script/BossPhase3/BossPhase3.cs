@@ -5,16 +5,19 @@ using UnityEngine;
 
 public class BossPhase3 : MonoBehaviour
 {
-    List<BossPhase3Hand> hands = new ();
+    [SerializeField] Player player;
+    float followSharpness = 0.005f;
+    Vector3 _followOffset;
     // Start is called before the first frame update
     void Start()
     {
-        hands = GetComponentsInChildren<BossPhase3Hand>().ToList();
+        _followOffset = transform.position - player.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Vector3 targetPosition = player.transform.position + _followOffset;
+        transform.position += (targetPosition - transform.position) * followSharpness;
     }
 }
