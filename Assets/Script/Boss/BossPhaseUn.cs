@@ -1,27 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossPhaseUn : MonoBehaviour
 {
     [SerializeField] int vie = 1000;
-    int vieRestant;
-    Rigidbody2D rb;
     [SerializeField] int attack = 5;
-    [SerializeField] GameObject projectile;
-    [SerializeField] GameObject target;
-    [SerializeField] UIController uicontroller;
     [SerializeField] float vitesse = 4;
+    [SerializeField] float distanceEsquive = 10;
+    [SerializeField] float vitesseAttack = 2;
+    
+    int vieRestant;
     bool bossPret = false;
     bool peutBouger = true;
+    float vitesseAttackRestant;
+
     CameraController camController;
+    BossGeneral bossGeneral;
+    Player joueur;
+
+    [SerializeField] GameObject projectile;
+    [SerializeField] GameObject explosionSign;
+    [SerializeField] GameObject target;
+    [SerializeField] GameObject damageZone;
+    [SerializeField] UIController uicontroller;
     [SerializeField] GameObject empecherMoveJoueur;
-    [SerializeField] float distanceEsquive = 10;
+    [SerializeField] Slider healthBar;
+
     void Start()
     {
         camController = FindAnyObjectByType<CameraController>();
+        bossGeneral = GetComponent<BossGeneral>();
+        joueur = target.GetComponent<Player>();
+
         vieRestant = vie;
-        rb = GetComponent<Rigidbody2D>();
+        vitesseAttackRestant = vitesseAttack;
+        healthBar.maxValue = vie;
+        healthBar.value = vieRestant;
+
         StartCoroutine(Esquive());
         StartCoroutine(Attack());
         StartCoroutine(ApparaitreBoss());
@@ -33,22 +51,38 @@ public class BossPhaseUn : MonoBehaviour
         if (bossPret && target != null)
         {
             Vector3 VectorPos = target.transform.position - transform.position;
-            if (VectorPos.magnitude > 2)
+            if (VectorPos.magnitude > 2.5)
             {
                 if (peutBouger)
-                    transform.Translate(VectorPos.normalized * vitesse * Time.deltaTime);
+                    transform.Translate(VectorPos.normalized * vitesse * Time.deltaTime); //marcher direction le joueur
             }
+            else
+            {
+                if(vitesseAttackRestant > vitesseAttack)
+                {
+                    //attack de corp a corp (de proche)
+                    Instantiate(damageZone, transform.position + (target.transform.position - transform.position).normalized, Quaternion.LookRotation(Vector3.forward, VectorPos), transform) ;
+                    vitesseAttackRestant = 0;
+                }
+            }
+            vitesseAttackRestant += Time.deltaTime;
+            if (vieRestant <= 0)
+                Destroy(gameObject);
         }
     }
     IEnumerator ApparaitreBoss()
     {
-        camController.afficherJoueur = false;
+        camController.afficherJoueur = false; //mettre camera sur boss
         empecherMoveJoueur.SetActive(true);
+
         yield return new WaitForSeconds(2);
-        StartCoroutine(uicontroller.FadeText());
+
+        StartCoroutine(uicontroller.FadeText()); // afficher le titre du boss
+
         yield return new WaitForSeconds(4);
-        StartCoroutine(uicontroller.FadeText(false));
-        camController.afficherJoueur = true;
+
+        StartCoroutine(uicontroller.FadeText(false)); // effacer le titre du boss
+        camController.afficherJoueur = true; //mettre camera sur joueur
         empecherMoveJoueur.SetActive(false);
         bossPret = true;
     }
@@ -56,8 +90,8 @@ public class BossPhaseUn : MonoBehaviour
     {
         if (bossPret && target != null)
         {
-            yield return new WaitForSeconds(7);
-            int attack = Random.Range(0, 1);
+            yield return new WaitForSeconds(5);
+            int attack = Random.Range(0, 2);
             switch (attack)
             {
                 case 0:
@@ -65,7 +99,8 @@ public class BossPhaseUn : MonoBehaviour
                     yield return new WaitForSeconds(10f);
                     break;
                 case 1:
-
+                    StartCoroutine(Attack2());
+                    yield return new WaitForSeconds(10f);
                     break;
                 case 2:
 
@@ -83,7 +118,6 @@ public class BossPhaseUn : MonoBehaviour
         {
             while (nombreDeBalle > 0)
             {
-                yield return new WaitForSeconds(0.2f);
                 GameObject projectileTemp = ObjectPool.instance.GetPoolObject(projectile);
                 if (projectileTemp != null && target != null)
                 {
@@ -92,6 +126,7 @@ public class BossPhaseUn : MonoBehaviour
                     projectileTemp.SetActive(true);
                 }
                 nombreDeBalle--;
+                yield return new WaitForSeconds(0.2f);
             }
             nombreDeBalle = 15;
             if (i == 0)
@@ -102,19 +137,19 @@ public class BossPhaseUn : MonoBehaviour
     IEnumerator Attack2()
     {
         peutBouger = false;
-        float nombreDeBalle = 5;
+        float nombreExplosion = 5;
 
-        while (nombreDeBalle > 0)
+        while (nombreExplosion > 0)
         {
-            yield return new WaitForSeconds(0.2f);
-            GameObject projectileTemp = ObjectPool.instance.GetPoolObject(projectile);
-            if (projectileTemp != null)
+            GameObject explosionSignTemp = ObjectPool.instance.GetPoolObject(explosionSign);
+            if (explosionSignTemp != null && target != null)
             {
-                projectileTemp.transform.position = transform.position;
-                projectileTemp.transform.rotation = transform.rotation;
-                projectileTemp.SetActive(true);
+                explosionSignTemp.transform.position = target.transform.position;
+                explosionSignTemp.transform.rotation = transform.rotation;
+                explosionSignTemp.SetActive(true);
             }
-            nombreDeBalle--;
+            nombreExplosion--;
+            yield return new WaitForSeconds(1f);
         }
         peutBouger = true;
     }
@@ -160,5 +195,14 @@ public class BossPhaseUn : MonoBehaviour
                 break;
         }
         yield return null;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "damageZone" || collision.tag == "Bullet")
+        {
+            bossGeneral.vieRestant -= joueur.damage;
+            vieRestant -= joueur.damage;
+            healthBar.value = vieRestant;
+        }
     }
 }

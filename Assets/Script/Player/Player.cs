@@ -11,12 +11,15 @@ public class Player : MonoBehaviour
     public int nbPotions = 0;
     public int health = 100;
     public int damage = 1;
+    [SerializeField] int explosionDegat = 25;
     bool invincible = false;
 
     SpriteRenderer sr;
     Color spriteColor;
 
     [SerializeField] Image healthBar;
+
+    [SerializeField] bool GodMod = false;
 
     void Start()
     {
@@ -30,7 +33,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         HealthBarManager();
-        if (health <= 0)
+        if (health <= 0 && !GodMod)
         {
             Destroy(gameObject);
         }
@@ -65,6 +68,10 @@ public class Player : MonoBehaviour
         {
             projectileGuide projectile = collision.GetComponent<projectileGuide>();
             health -= projectile.degat;
+        }
+        if (collision.tag == "Explosion" || collision.tag == "AttackBoss1")
+        {
+            health -= explosionDegat;
         }
     }
 
