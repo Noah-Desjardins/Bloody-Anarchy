@@ -64,15 +64,31 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "sword")
+        if (!invincible)
         {
-            projectileGuide projectile = collision.GetComponent<projectileGuide>();
-            health -= projectile.degat;
+            if (collision.tag == "sword")
+            {
+                projectileGuide projectile = collision.GetComponent<projectileGuide>();
+                health -= projectile.degat;
+            }
+            if (collision.tag == "Explosion" || collision.tag == "AttackBoss1")
+            {
+                health -= explosionDegat;
+            }
+            if (collision.tag == "bossbullet")
+            {
+                Bullet bullet = collision.GetComponent<Bullet>();
+                health -= bullet.howManyDamage();
+                StartCoroutine(InvincibilityFrames(Color.red));
+            }
+            if (collision.tag == "hand")
+            {
+                BossPhase3Hand hand = collision.GetComponent<BossPhase3Hand>();
+                health -= hand.howManyDamage();
+                StartCoroutine(InvincibilityFrames(Color.red));
+            }
         }
-        if (collision.tag == "Explosion" || collision.tag == "AttackBoss1")
-        {
-            health -= explosionDegat;
-        }
+
     }
 
 }

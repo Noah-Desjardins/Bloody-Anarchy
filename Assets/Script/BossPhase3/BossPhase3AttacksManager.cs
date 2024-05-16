@@ -27,7 +27,13 @@ public class BossPhase3AttacksManager : MonoBehaviour
         }
         innactiveHandsBack();
     }
-
+    IEnumerator disableHand(BossPhase3Hand hand)
+    {
+        GameObject handtemp = hand.gameObject;
+        handtemp.SetActive(false);
+        yield return new WaitForSeconds(5f);
+        handtemp.SetActive(true);
+    }
     IEnumerator startHandsAttack()
     {
         while (!fightHasEnded)
@@ -81,6 +87,10 @@ public class BossPhase3AttacksManager : MonoBehaviour
             {
                 StartCoroutine(hand.backToPosition());
             }
+            if (hand.health <= 0)
+            {
+                StartCoroutine(disableHand(hand));
+            }
         }
     }
     int? pickHand()
@@ -88,7 +98,7 @@ public class BossPhase3AttacksManager : MonoBehaviour
         List<int> handsReady = new List<int>();
         for (int i = 0; i < hands.Count; i++)
         {
-            if (!hands[i].isAttacking)
+            if (!hands[i].isAttacking && hands[i].isActiveAndEnabled)
                 handsReady.Add(i);
         }
         if (handsReady.Count > 0)

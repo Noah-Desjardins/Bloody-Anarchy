@@ -16,6 +16,8 @@ TagManager:
   - AttackBoss1
   - canShoot
   - damageZone
+  - bossbullet
+  - hand
   layers:
   - Default
   - TransparentFX
