@@ -53,6 +53,7 @@ public class PlayerShoot : MonoBehaviour
         {
             if (cooldown.tag == "canShoot")
                 shootingCooldown = cooldown;
+            print(shootingCooldown);
         }
     }
     public void Shoot()
