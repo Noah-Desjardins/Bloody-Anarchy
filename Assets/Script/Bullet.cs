@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] float bulletSpeed;
     Animator animator;
     Collider2D bulletCollider;
+    public int mindamage = 2;
+    public int maxdamage = 5;
     bool hasHit = false;
     float explostionDuration = 0;
 
@@ -41,9 +43,10 @@ public class Bullet : MonoBehaviour
         animator.SetTrigger("hit");
         bulletCollider.enabled = false;
         hasHit = true;
-        print(explostionDuration);
         yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
     }
+    public int howManyDamage() => UnityEngine.Random.Range(mindamage, maxdamage + 1);
+    
    
 }
