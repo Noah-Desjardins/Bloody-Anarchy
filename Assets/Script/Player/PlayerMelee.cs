@@ -11,14 +11,15 @@ public class PlayerMelee : MonoBehaviour
     PlayerMovement playerMovement;
     [SerializeField] GameObject attackPrefab;
     [SerializeField] damageZone damageZone;
-    [SerializeField] GameObject? shop;
+    [SerializeField] GameObject shop;
 
     PlayerAbility playerAbility;
-    [SerializeField] GameObject abilityContainer;
+    GameObject abilityContainer;
     Cooldown slashingCooldown;
     // Start is called before the first frame update
     void Start()
     {
+        abilityContainer = GameObject.FindGameObjectWithTag("abilityContaineur");
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
         playerMovement = GetComponent<PlayerMovement>();

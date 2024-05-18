@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -11,22 +13,34 @@ public class Player : MonoBehaviour
     public int nbPotions = 0;
     public int health = 100;
     public int damage = 1;
-    [SerializeField] int explosionDegat = 25;
     bool invincible = false;
 
     SpriteRenderer sr;
     Color spriteColor;
 
-    [SerializeField] Image healthBar;
+    Image healthBar;
 
     [SerializeField] bool GodMod = false;
 
     void Start()
     {
+        healthBar = GameObject.FindGameObjectWithTag("healtBar").GetComponent<Image>();
         sr = GetComponent<SpriteRenderer>();
         spriteColor = sr.color;
 
         health = StartingHealth;
+    }
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        this.gameObject.transform.position = new Vector3(0, 0, 0);
     }
 
     // Update is called once per frame
@@ -41,7 +55,7 @@ public class Player : MonoBehaviour
     public void HealthBarManager()
     {
         if (healthBar.fillAmount * StartingHealth != health)
-            healthBar.fillAmount = (float) health / StartingHealth;
+            healthBar.fillAmount = (float)health / StartingHealth;
 
     }
 
@@ -60,7 +74,7 @@ public class Player : MonoBehaviour
         invincible = false;
         sr.color = spriteColor;
     }
-    
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -71,20 +85,26 @@ public class Player : MonoBehaviour
                 projectileGuide projectile = collision.GetComponent<projectileGuide>();
                 health -= projectile.degat;
             }
-            if (collision.tag == "Explosion" || collision.tag == "AttackBoss1")
+            else if (collision.tag == "Explosion")
             {
-                health -= explosionDegat;
+                ExplosionDamage explsosion = collision.GetComponent<ExplosionDamage>();
+                health -= explsosion.damage;
             }
-            if (collision.tag == "bossbullet")
+            else if (collision.tag == "AttackBoss1")
+            {
+                closeDamge close = collision.GetComponent<closeDamge>();
+                health -= close.damage;
+            }
+            else if (collision.tag == "bossbullet")
             {
                 Bullet bullet = collision.GetComponent<Bullet>();
                 health -= bullet.howManyDamage();
                 StartCoroutine(InvincibilityFrames(Color.red));
             }
-            if (collision.tag == "hand")
+            else if (collision.tag == "hand")
             {
                 BossPhase3Hand hand = collision.GetComponent<BossPhase3Hand>();
-                health -= hand.howManyDamage();
+                health -= hand.howManyDamage;
                 StartCoroutine(InvincibilityFrames(Color.red));
             }
         }

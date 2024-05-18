@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class BossPhase3Hand : MonoBehaviour
 {
+    public int howManyDamage = 1;
+    public int health = 1;
+
     public bool isAttacking = false;
     bool isGoingBack = false;
     bool isGoingTopRight = false;

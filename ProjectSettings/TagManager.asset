@@ -18,6 +18,9 @@ TagManager:
   - damageZone
   - bossbullet
   - hand
+  - healtBar
+  - abilityContaineur
+  - FadeBlack
   layers:
   - Default
   - TransparentFX

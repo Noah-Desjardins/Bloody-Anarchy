@@ -16,11 +16,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject ShopUI;
 
     PlayerAbility playerAbility;
-    [SerializeField] GameObject abilityContainer;
+    GameObject abilityContainer;
     Cooldown rollingCooldown;
 
     void Start()
     {
+        abilityContainer = GameObject.FindGameObjectWithTag("abilityContaineur");
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();

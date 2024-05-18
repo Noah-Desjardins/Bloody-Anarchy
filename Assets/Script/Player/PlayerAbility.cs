@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerAbility : MonoBehaviour
 {
     [SerializeField] List<GameObject> AbilitiesPrefabs;
-    [SerializeField] AbilityContainer abilityContainer;
+    AbilityContainer abilityContainer;
     [SerializeField] bool canRoll = false;
     [SerializeField] bool canShoot = false;
     [SerializeField] bool canSlash = false;
@@ -15,6 +15,7 @@ public class PlayerAbility : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        abilityContainer = GameObject.FindGameObjectWithTag("abilityContaineur").GetComponent<AbilityContainer>();
         PlayerPrefs.SetInt("canRoll", BoolToInt(canRoll));
         PlayerPrefs.SetInt("canShoot", BoolToInt(canShoot));
         PlayerPrefs.SetInt("canSlash", BoolToInt(canSlash));
