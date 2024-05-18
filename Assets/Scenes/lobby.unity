@@ -822,7 +822,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objetsAPool:
   - {fileID: 7115204580150724059, guid: 28b994a86273ba948aa22ac5e34cf9e0, type: 3}
-  nombreAPool: 19000000
+  - {fileID: 7613764599475349147, guid: f04740afc818e1641a245149f8101b04, type: 3}
+  - {fileID: 2971525184754346135, guid: a7027c472199cd74580ef825d7867363, type: 3}
+  - {fileID: 861891379883691616, guid: 3a11f56ebf6ca8f4fb9550653744aadc, type: 3}
+  nombreAPool: 190000004b0000001900000019000000
 --- !u!114 &199273541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4125,6 +4128,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   potionHealthGain: 10
   potionContainer: {fileID: 745116119}
+--- !u!114 &754226497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754226465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a218477908504c4b9076b0dbdacd554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &763715485
 GameObject:
   m_ObjectHideFlags: 0
@@ -14951,11 +14966,11 @@ PrefabInstance:
       objectReference: {fileID: 3157715149170653934}
     - target: {fileID: 390731517473620846, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.09
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 390731517473620846, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 390731517473620846, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       propertyPath: m_LocalPosition.z
@@ -15131,6 +15146,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6322911830811641988, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       insertIndex: -1
       addedObject: {fileID: 754226487}
+    - targetCorrespondingSourceObject: {fileID: 6322911830811641988, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 754226497}
   m_SourcePrefab: {fileID: 100100000, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
 --- !u!224 &8004820876599567113
 RectTransform:
