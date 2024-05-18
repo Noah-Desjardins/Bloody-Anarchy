@@ -11,7 +11,7 @@ public class BossPhaseUn : MonoBehaviour
     [SerializeField] float vitesse = 4;
     [SerializeField] float distanceEsquive = 10;
     [SerializeField] float vitesseAttack = 2;
-    
+
     int vieRestant;
     bool bossPret = false;
     bool peutBouger = true;
@@ -28,9 +28,15 @@ public class BossPhaseUn : MonoBehaviour
     [SerializeField] UIController uicontroller;
     [SerializeField] GameObject empecherMoveJoueur;
     [SerializeField] Slider healthBar;
+    [SerializeField] AudioClip projectileSound;
+    [SerializeField] AudioClip explosionSound;
+    [SerializeField] AudioClip bossRoarSound;
+
+    AudioSource audioSource;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         camController = FindAnyObjectByType<CameraController>();
         bossGeneral = GetComponent<BossGeneral>();
         joueur = target.GetComponent<Player>();
@@ -45,7 +51,6 @@ public class BossPhaseUn : MonoBehaviour
         StartCoroutine(ApparaitreBoss());
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (bossPret && target != null)
@@ -58,10 +63,10 @@ public class BossPhaseUn : MonoBehaviour
             }
             else
             {
-                if(vitesseAttackRestant > vitesseAttack)
+                if (vitesseAttackRestant > vitesseAttack)
                 {
                     //attack de corp a corp (de proche)
-                    Instantiate(damageZone, transform.position + (target.transform.position - transform.position).normalized, Quaternion.LookRotation(Vector3.forward, VectorPos), transform) ;
+                    Instantiate(damageZone, transform.position + (target.transform.position - transform.position).normalized, Quaternion.LookRotation(Vector3.forward, VectorPos), transform);
                     vitesseAttackRestant = 0;
                 }
             }
@@ -74,6 +79,7 @@ public class BossPhaseUn : MonoBehaviour
     {
         camController.afficherJoueur = false; //mettre camera sur boss
         empecherMoveJoueur.SetActive(true);
+        audioSource.PlayOneShot(bossRoarSound);
 
         yield return new WaitForSeconds(2);
 
@@ -124,6 +130,7 @@ public class BossPhaseUn : MonoBehaviour
                     projectileTemp.transform.position = transform.position;
                     projectileTemp.transform.rotation = transform.rotation;
                     projectileTemp.SetActive(true);
+                    audioSource.PlayOneShot(projectileSound);
                 }
                 nombreDeBalle--;
                 yield return new WaitForSeconds(0.2f);
@@ -147,6 +154,7 @@ public class BossPhaseUn : MonoBehaviour
                 explosionSignTemp.transform.position = target.transform.position;
                 explosionSignTemp.transform.rotation = transform.rotation;
                 explosionSignTemp.SetActive(true);
+                audioSource.PlayOneShot(explosionSound);
             }
             nombreExplosion--;
             yield return new WaitForSeconds(1f);

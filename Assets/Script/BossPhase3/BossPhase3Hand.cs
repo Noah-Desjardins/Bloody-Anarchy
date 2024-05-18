@@ -25,29 +25,24 @@ public class BossPhase3Hand : MonoBehaviour
     float StartAngle = 0;
     float angle = -1;
 
-
-
     //Attaque tirer en ligne droite sur le joueur
     [SerializeField] GameObject bulletPrefab;
 
     SpriteRenderer sr;
     Vector3 localPos = Vector3.zero;
     Vector3 topRight = Vector3.zero;
-    // Start is called before the first frame update
+
     void Start()
     {
         speedTemp = speed;
         localPos = transform.localPosition;
         sr = GetComponent<SpriteRenderer>();
-       //StartCoroutine(testAttack());
     }
 
-    // Update is called once per frame
     void Update()
     {
-        print(isAttacking);
         if (!isRushing && !isGoingBack && !isGoingTopRight && !isGoingLeft && !isGoingNearPlayer)
-            transform.rotation = Quaternion.LookRotation(Vector3.forward,player.transform.position - transform.position);
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, player.transform.position - transform.position);
 
         if (isRushing)
         {
@@ -55,12 +50,10 @@ public class BossPhase3Hand : MonoBehaviour
         }
         if (isGoingBack)
         {
-            
             transform.position += transform.up * Time.deltaTime * (speedTemp * 1.5f);
         }
         if (isGoingTopRight)
         {
-            
             transform.position += transform.up * Time.deltaTime * (speedTemp * 1.5f);
         }
         if (isGoingLeft)
@@ -71,7 +64,6 @@ public class BossPhase3Hand : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(Vector3.forward, player.transform.position - transform.position);
             transform.position += transform.up * Time.deltaTime * (speedTemp * 1.5f);
-
         }
         if (isTurningAroundPlayer)
         {
@@ -82,11 +74,10 @@ public class BossPhase3Hand : MonoBehaviour
                 Mathf.Cos(angle) * turningRadius,
                 Mathf.Sin(angle) * turningRadius,
                 0
-                
             );
-
         }
     }
+
     public IEnumerator backToPosition()
     {
         isAttacking = false;
@@ -98,6 +89,7 @@ public class BossPhase3Hand : MonoBehaviour
         }
         isGoingBack = false;
     }
+
     public IEnumerator rushPlayer(float timeToRush, float speedrush, bool isXtrem = false)
     {
         isAttacking = true;
@@ -110,6 +102,7 @@ public class BossPhase3Hand : MonoBehaviour
         if (!isXtrem)
             isAttacking = false;
     }
+
     public IEnumerator rushPlayerXtrem(float timeToRush, float speedrush)
     {
         isAttacking = true;
@@ -119,16 +112,15 @@ public class BossPhase3Hand : MonoBehaviour
             StartCoroutine(rushPlayer(timeToRush, speedrush, true));
             nbRush--;
             yield return new WaitForSeconds(timeToRush);
-            
         }
         isAttacking = false;
     }
-    public IEnumerator shootFromTop() 
+
+    public IEnumerator shootFromTop()
     {
         StartCoroutine(goTopRight());
         while (isAttacking)
         {
-            
             if (!isGoingTopRight && !isGoingLeft)
             {
                 isGoingLeft = true;
@@ -140,6 +132,7 @@ public class BossPhase3Hand : MonoBehaviour
         isGoingLeft = false;
         isAttacking = false;
     }
+
     public IEnumerator shootLine(int nbBullet)
     {
         isAttacking = true;
@@ -154,6 +147,7 @@ public class BossPhase3Hand : MonoBehaviour
         }
         isAttacking = false;
     }
+
     public IEnumerator bulletParry()
     {
         isParrying = true;
@@ -162,6 +156,7 @@ public class BossPhase3Hand : MonoBehaviour
         sr.color = Color.white;
         isParrying = false;
     }
+
     public IEnumerator shootArroundPlayer()
     {
         StartCoroutine(goNearPlayer());
@@ -176,12 +171,13 @@ public class BossPhase3Hand : MonoBehaviour
         }
         isTurningAroundPlayer = false;
     }
+
     public IEnumerator goTopRight()
     {
         isAttacking = true;
         isGoingTopRight = true;
         topRight = new Vector3(player.transform.position.x + 6, player.transform.position.y + 7, player.transform.position.z);
-        while (Mathf.Abs((transform.position - topRight).magnitude) >=1f)
+        while (Mathf.Abs((transform.position - topRight).magnitude) >= 1f)
         {
             transform.rotation = Quaternion.LookRotation(Vector3.forward, topRight - transform.position);
             yield return null;
@@ -189,26 +185,26 @@ public class BossPhase3Hand : MonoBehaviour
         transform.position = topRight;
         isGoingTopRight = false;
     }
+
     IEnumerator goNearPlayer()
     {
         isGoingNearPlayer = true;
         isAttacking = true;
-        while (Mathf.Abs((transform.position - player.transform.position).magnitude) >=4f)
+        while (Mathf.Abs((transform.position - player.transform.position).magnitude) >= 4f)
         {
             yield return null;
         }
         float y = transform.position.y - player.transform.position.y;
         StartAngle = Mathf.Asin(y / turningRadius);
-
         isGoingNearPlayer = false;
     }
-    
-    
+
     public IEnumerator testAttack()
     {
         yield return new WaitForSeconds(3f);
-        StartCoroutine(rushPlayerXtrem(0.5f,10));
+        StartCoroutine(rushPlayerXtrem(0.5f, 10));
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("bullet") && isParrying)

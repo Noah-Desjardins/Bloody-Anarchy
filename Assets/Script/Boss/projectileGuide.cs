@@ -3,30 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class projectileGuide : MonoBehaviour
+public class ProjectileGuide : MonoBehaviour
 {
     GameObject target;
     Vector3 distance = Vector3.zero;
     float rotation;
     [SerializeField] float vitesse = 3;
     public int degat = 25;
-    // Start is called before the first frame update
+    [SerializeField] AudioClip shootSound;
+
+    AudioSource audioSource;
+
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("player");
+        audioSource = GetComponent<AudioSource>();
+        target = GameObject.FindGameObjectWithTag("Player");
         distance = target.transform.position - transform.position;
         transform.transform.rotation = Quaternion.LookRotation(Vector3.forward, distance);
         transform.Rotate(new Vector3(0, 0, 45), Space.World);
-    }
-    private void OnEnable()
-    {
-        target = GameObject.FindGameObjectWithTag("player");
-        distance = target.transform.position - transform.position;
-        transform.transform.rotation = Quaternion.LookRotation(Vector3.forward, distance);
-        transform.Rotate(new Vector3(0, 0, 45), Space.World);
+        audioSource.PlayOneShot(shootSound);
     }
 
-    // Update is called once per frame
+    void OnEnable()
+    {
+        audioSource = GetComponent<AudioSource>();
+        target = GameObject.FindGameObjectWithTag("Player");
+        distance = target.transform.position - transform.position;
+        transform.transform.rotation = Quaternion.LookRotation(Vector3.forward, distance);
+        transform.Rotate(new Vector3(0, 0, 45), Space.World);
+        audioSource.PlayOneShot(shootSound);
+    }
+
     void Update()
     {
         transform.Translate(distance.normalized * vitesse * Time.deltaTime, Space.World);

@@ -11,7 +11,7 @@ public class damageZone : MonoBehaviour
     float tempSlashTime;
     void Start()
     {
-        sr = GetComponent<SpriteRenderer>();    
+        sr = GetComponent<SpriteRenderer>();
         player = GetComponentInParent<PlayerMovement>();
         tempSlashTime = SlashTime;
         sr.flipX = player.flipped(true);

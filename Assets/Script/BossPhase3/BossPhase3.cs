@@ -13,7 +13,7 @@ public class BossPhase3 : MonoBehaviour
     [SerializeField] Slider healthBar;
     float followSharpness = 0.005f;
     Vector3 _followOffset;
-    // Start is called before the first frame update
+
     void Start()
     {
         _followOffset = transform.position - player.transform.position;
@@ -21,18 +21,18 @@ public class BossPhase3 : MonoBehaviour
         healthBar.value = 1;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 targetPosition = player.transform.position + _followOffset;
         transform.position += (targetPosition - transform.position) * followSharpness;
     }
+
     public void takeDamage(int damage)
     {
         health -= damage;
         healthBar.value = (float)health / startHealth;
-
     }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "bullet")
@@ -41,7 +41,6 @@ public class BossPhase3 : MonoBehaviour
             int damage = bullet.howManyDamage() / 5;
             takeDamage(damage);
             health -= damage;
-
         }
     }
 }

@@ -21,12 +21,23 @@ public class Player : MonoBehaviour
 
     [SerializeField] bool GodMod = false;
 
+    // Sound effect variables
+    [SerializeField] AudioClip hitSound;
+    [SerializeField] AudioSource audioSource;
+
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         spriteColor = sr.color;
 
         health = StartingHealth;
+
+        // Initialize audio source
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame
@@ -38,11 +49,11 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     public void HealthBarManager()
     {
         if (healthBar.fillAmount * StartingHealth != health)
-            healthBar.fillAmount = (float) health / StartingHealth;
-
+            healthBar.fillAmount = (float)health / StartingHealth;
     }
 
     public IEnumerator InvincibilityFrames(Color color)
@@ -60,7 +71,6 @@ public class Player : MonoBehaviour
         invincible = false;
         sr.color = spriteColor;
     }
-    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -70,25 +80,36 @@ public class Player : MonoBehaviour
             {
                 projectileGuide projectile = collision.GetComponent<projectileGuide>();
                 health -= projectile.degat;
+                PlayHitSound();
             }
             if (collision.tag == "Explosion" || collision.tag == "AttackBoss1")
             {
                 health -= explosionDegat;
+                PlayHitSound();
             }
             if (collision.tag == "bossbullet")
             {
                 Bullet bullet = collision.GetComponent<Bullet>();
                 health -= bullet.howManyDamage();
                 StartCoroutine(InvincibilityFrames(Color.red));
+                PlayHitSound();
             }
             if (collision.tag == "hand")
             {
                 BossPhase3Hand hand = collision.GetComponent<BossPhase3Hand>();
                 health -= hand.howManyDamage();
                 StartCoroutine(InvincibilityFrames(Color.red));
+                PlayHitSound();
             }
         }
-
     }
 
+    void PlayHitSound()
+    {
+        if (hitSound != null)
+        {
+            audioSource.clip = hitSound;
+            audioSource.Play();
+        }
+    }
 }
