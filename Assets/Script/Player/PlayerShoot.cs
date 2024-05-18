@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerShoot : MonoBehaviour
@@ -11,10 +12,10 @@ public class PlayerShoot : MonoBehaviour
     SpriteRenderer sr;
     Animator animator;
     [SerializeField] GameObject bulletPrefab; // Ici ça va être bullet
-    [SerializeField] GameObject? shop;
+    [SerializeField] GameObject shop;
 
     PlayerAbility playerAbility;
-    [SerializeField] GameObject abilityContainer;
+    GameObject abilityContainer;
     Cooldown shootingCooldown; // Ici mettre le cooldown de shoot
 
     Vector3 mousePosition = Vector3.zero;
@@ -27,7 +28,8 @@ public class PlayerShoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cam = Camera.main;
+        abilityContainer = GameObject.FindGameObjectWithTag("abilityContaineur");
+        
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
         playerAbility = GetComponent<PlayerAbility>();
@@ -37,6 +39,18 @@ public class PlayerShoot : MonoBehaviour
             playerCursor.setCursor(shootingCursor);
 
         }
+    }
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        cam = Camera.main;
     }
 
     // Update is called once per frame

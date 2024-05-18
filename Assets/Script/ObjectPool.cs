@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ObjectPool : MonoBehaviour
 {
@@ -13,16 +14,20 @@ public class ObjectPool : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
             instance = this;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
-
-    // Start is called before the first frame update
-    void Start()
+    void OnDestroy()
     {
-        for(int i = 0; i < Mathf.Min(objetsAPool.Length, nombreAPool.Length); i++)
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        pool.Clear();
+        for (int i = 0; i < Mathf.Min(objetsAPool.Length, nombreAPool.Length); i++)
         {
-            for (int j = 0;j < nombreAPool[i]; j++)
+            for (int j = 0; j < nombreAPool[i]; j++)
             {
                 GameObject obj = Instantiate(objetsAPool[i]);
                 obj.name = objetsAPool[i].name;

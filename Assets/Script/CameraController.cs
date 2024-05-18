@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] GameObject player;
+    GameObject player;
     [SerializeField] GameObject boss;
-    Camera camera;
     public bool afficherJoueur = true;
     // Start is called before the first frame update
     void Start()
     {
-        camera = GetComponent<Camera>();
+        player = GameObject.FindGameObjectWithTag("player");
     }
 
     // Update is called once per frame
@@ -26,12 +25,6 @@ public class CameraController : MonoBehaviour
                 transform.position = new Vector3(positionJoueur.x, positionJoueur.y, -10);
             else
                 transform.position = new Vector3(positionBoss.x, positionBoss.y, -10);
-            //transform.position = new Vector3((positionBoss.x + positionJoueur.x)/2, (positionBoss.y + positionJoueur.y)/ 2, transform.position.z);
-            //camera.orthographicSize = disanceX / 3.2f + distanceY / 1.6f;
-            //if (camera.orthographicSize < 5)
-            //{
-            //    camera.orthographicSize = 5f;
-            //}
         }
 
     }
