@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossPhase3Hand : MonoBehaviour
 {
@@ -13,8 +15,15 @@ public class BossPhase3Hand : MonoBehaviour
     bool isGoingNearPlayer = false;
     bool isTurningAroundPlayer = false;
 
+    public int health = 500;
+
     [SerializeField] Player player;
     [SerializeField] float speed = 5f;
+
+    BossPhase3 boss;
+    
+    public int mindamage = 3;
+    public int maxdamage = 5;
     float speedTemp;
     //Attaque rush du joueur
     bool isRushing = false;
@@ -39,13 +48,23 @@ public class BossPhase3Hand : MonoBehaviour
         speedTemp = speed;
         localPos = transform.localPosition;
         sr = GetComponent<SpriteRenderer>();
+        boss = GetComponentInParent<BossPhase3>();
        //StartCoroutine(testAttack());
     }
-
+    private void OnEnable()
+    {
+        isAttacking = false;
+        isRushing = false;
+        isGoingBack = false;
+        isGoingNearPlayer = false;
+        isTurningAroundPlayer = false;
+        isGoingTopRight = false;
+        health = 500;
+        speedTemp = speed;
+    }
     // Update is called once per frame
     void Update()
     {
-        print(isAttacking);
         if (!isRushing && !isGoingBack && !isGoingTopRight && !isGoingLeft && !isGoingNearPlayer)
             transform.rotation = Quaternion.LookRotation(Vector3.forward,player.transform.position - transform.position);
 
@@ -219,5 +238,14 @@ public class BossPhase3Hand : MonoBehaviour
             bulletTemp.transform.rotation = Quaternion.LookRotation(Vector3.forward, player.transform.position - collision.transform.position);
             bulletTemp.SetActive(true);
         }
+        if (collision.tag == "bullet" && !isParrying)
+        {
+            Bullet bullet = collision.GetComponent<Bullet>();
+            int damage = bullet.howManyDamage();
+            boss.takeDamage(damage);
+            health -= damage;
+
+        }
     }
+    public int howManyDamage() => UnityEngine.Random.Range(mindamage, maxdamage + 1);
 }

@@ -11,7 +11,7 @@ public class BossPhaseUn : MonoBehaviour
     [SerializeField] float vitesse = 4;
     [SerializeField] float distanceEsquive = 10;
     [SerializeField] float vitesseAttack = 2;
-    
+   
     int vieRestant;
     bool bossPret = false;
     bool peutBouger = true;
@@ -20,6 +20,8 @@ public class BossPhaseUn : MonoBehaviour
     CameraController camController;
     BossGeneral bossGeneral;
     Player joueur;
+    SpriteRenderer spriteRenderer;
+    Animator animator;
 
     [SerializeField] GameObject projectile;
     [SerializeField] GameObject explosionSign;
@@ -34,6 +36,8 @@ public class BossPhaseUn : MonoBehaviour
         camController = FindAnyObjectByType<CameraController>();
         bossGeneral = GetComponent<BossGeneral>();
         joueur = target.GetComponent<Player>();
+        animator = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         vieRestant = vie;
         vitesseAttackRestant = vitesseAttack;
@@ -51,13 +55,26 @@ public class BossPhaseUn : MonoBehaviour
         if (bossPret && target != null)
         {
             Vector3 VectorPos = target.transform.position - transform.position;
+            animator.SetBool("walk",  peutBouger && VectorPos.magnitude > 2.5);
             if (VectorPos.magnitude > 2.5)
             {
+                
                 if (peutBouger)
+                {
                     transform.Translate(VectorPos.normalized * vitesse * Time.deltaTime); //marcher direction le joueur
+                    if (VectorPos.normalized.x < 0)
+                    {
+                        spriteRenderer.flipX = true;
+                    }
+                    else
+                    {
+                        spriteRenderer.flipX = false;
+                    }
+                }
             }
             else
             {
+
                 if(vitesseAttackRestant > vitesseAttack)
                 {
                     //attack de corp a corp (de proche)
