@@ -50,35 +50,5 @@ public class UIController : MonoBehaviour
             }
         }
     }
-    public IEnumerator FadeText(bool fade = true, float fadeSpeed = 1f)
-    {
-        Color color = FadeSquare.GetComponent<TextMeshProUGUI>().color;
-        float fadeState;
-        if (fade)
-        {
-            color = new Color(color.r, color.g, color.b, 0);
-            //FadeSquare.GetComponent<TextMeshProUGUI>().color = color;
-            while (FadeSquare.GetComponent<TextMeshProUGUI>().color.a < 1)
-            {
-                fadeState = color.a + (fadeSpeed * Time.deltaTime);
 
-                color = new Color(color.r, color.g, color.b, fadeState);
-                FadeSquare.GetComponent<TextMeshProUGUI>().color = color;
-                yield return null;
-            }
-        }
-        else
-        {
-            color = new Color(color.r, color.g, color.b, 1);
-            //FadeSquare.GetComponent<TextMeshProUGUI>().color = color;
-            while (FadeSquare.GetComponent<TextMeshProUGUI>().color.a > 0)
-            {
-                fadeState = color.a - (fadeSpeed * Time.deltaTime);
-
-                color = new Color(color.r, color.g, color.b, fadeState);
-                FadeSquare.GetComponent<TextMeshProUGUI>().color = color;
-                yield return null;
-            }
-        }
-    }
 }

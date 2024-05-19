@@ -21,6 +21,8 @@ TagManager:
   - healtBar
   - abilityContaineur
   - FadeBlack
+  - UIController
+  - empecherJoueurBouger
   layers:
   - Default
   - TransparentFX
