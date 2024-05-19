@@ -104,7 +104,7 @@ public class Player : MonoBehaviour
             else if (collision.tag == "hand")
             {
                 BossPhase3Hand hand = collision.GetComponent<BossPhase3Hand>();
-                health -= hand.howManyDamage;
+                health -= hand.howManyDamage();
                 StartCoroutine(InvincibilityFrames(Color.red));
             }
         }

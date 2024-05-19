@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class BossGeneral : MonoBehaviour
 {
-    [SerializeField] int vieTotal = 10000;
-    public int vieRestant;
-    public int pourcentageFait = 0;
+    [SerializeField] float vieTotal = 10000;
+    public float vieRestant;
+    public float pourcentageFait = 0;
     void Start()
     {
         vieRestant = vieTotal;
@@ -16,7 +16,7 @@ public class BossGeneral : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pourcentageFait = 100 - (vieRestant * 100 / vieTotal);
+        pourcentageFait = Mathf.Floor(100 - (vieRestant * 100 / vieTotal));
         if (pourcentageFait > 100)
             pourcentageFait = 100;
     }

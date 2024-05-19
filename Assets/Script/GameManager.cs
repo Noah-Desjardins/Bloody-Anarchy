@@ -23,9 +23,6 @@ public class GameManager : MonoBehaviour
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (fadeText)
-            StartCoroutine(uicontroller.FadeText(false));
-        else
             StartCoroutine(uicontroller.Fade(false));
     }
     void Update()

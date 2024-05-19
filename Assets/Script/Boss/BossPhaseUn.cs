@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class BossPhaseUn : MonoBehaviour
 {
@@ -22,17 +25,21 @@ public class BossPhaseUn : MonoBehaviour
     Player joueur;
     SpriteRenderer spriteRenderer;
     Animator animator;
+    GameObject target;
+    UIController uicontroller;
 
+    [SerializeField] TextMeshProUGUI titreBoss;
+    [SerializeField] GameObject empecherMoveJoueur;
     [SerializeField] GameObject projectile;
     [SerializeField] GameObject explosionSign;
-    [SerializeField] GameObject target;
     [SerializeField] GameObject damageZone;
-    [SerializeField] UIController uicontroller;
-    [SerializeField] GameObject empecherMoveJoueur;
     [SerializeField] Slider healthBar;
 
     void Start()
     {
+        target = GameObject.FindGameObjectWithTag("player");
+        uicontroller = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
+            
         camController = FindAnyObjectByType<CameraController>();
         bossGeneral = GetComponent<BossGeneral>();
         joueur = target.GetComponent<Player>();
@@ -94,14 +101,43 @@ public class BossPhaseUn : MonoBehaviour
 
         yield return new WaitForSeconds(2);
 
-        StartCoroutine(uicontroller.FadeText()); // afficher le titre du boss
+        StartCoroutine(FadeText()); // afficher le titre du boss
 
         yield return new WaitForSeconds(4);
 
-        StartCoroutine(uicontroller.FadeText(false)); // effacer le titre du boss
+        StartCoroutine(FadeText(false)); // effacer le titre du boss
         camController.afficherJoueur = true; //mettre camera sur joueur
         empecherMoveJoueur.SetActive(false);
         bossPret = true;
+    }
+    public IEnumerator FadeText(bool fade = true, float fadeSpeed = 1f)
+    {
+        Color color = titreBoss.color;
+        float fadeState;
+        if (fade)
+        {
+            color = new Color(color.r, color.g, color.b, 0);
+            while (titreBoss.color.a < 1)
+            {
+                fadeState = color.a + (fadeSpeed * Time.deltaTime);
+
+                color = new Color(color.r, color.g, color.b, fadeState);
+                titreBoss.color = color;
+                yield return null;
+            }
+        }
+        else
+        {
+            color = new Color(color.r, color.g, color.b, 1);
+            while (titreBoss.color.a > 0)
+            {
+                fadeState = color.a - (fadeSpeed * Time.deltaTime);
+
+                color = new Color(color.r, color.g, color.b, fadeState);
+                titreBoss.color = color;
+                yield return null;
+            }
+        }
     }
     IEnumerator Attack()
     {
@@ -215,10 +251,18 @@ public class BossPhaseUn : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "damageZone" || collision.tag == "Bullet")
+        if (collision.tag == "damageZone")
         {
             bossGeneral.vieRestant -= joueur.damage;
             vieRestant -= joueur.damage;
+            healthBar.value = vieRestant;
+        }
+        else if (collision.tag == "bullet")
+        {
+            Bullet bullet = collision.GetComponent<Bullet>();
+            int damage = bullet.howManyDamage();
+            bossGeneral.vieRestant -= damage;
+            vieRestant -= damage;
             healthBar.value = vieRestant;
         }
     }
