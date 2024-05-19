@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class BossPhase3Hand : MonoBehaviour
 {
-    public int howManyDamage = 1;
     public int health = 1;
 
     public bool isAttacking = false;
@@ -17,8 +16,6 @@ public class BossPhase3Hand : MonoBehaviour
     bool isParrying = false;
     bool isGoingNearPlayer = false;
     bool isTurningAroundPlayer = false;
-
-    public int health = 500;
 
     [SerializeField] Player player;
     [SerializeField] float speed = 5f;
