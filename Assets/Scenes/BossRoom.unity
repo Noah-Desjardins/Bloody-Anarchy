@@ -8850,7 +8850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817c56ff9e9c78c4b97d90d3ec7fae76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vieTotal: 10000
+  vieTotal: 1000
   vieRestant: 0
   pourcentageFait: 0
 --- !u!4 &490512452

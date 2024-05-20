@@ -21,16 +21,16 @@ public class deathUI : MonoBehaviour
     {
         
     }
-    public void show(bool show = true)
+    public void show(int scorepercent = 0, bool show = true)
     {
         canvas.alpha = show?1.0f:0f;
         canvas.interactable = show;
 
-        score.text =PlayerPrefs.HasKey("score")? PlayerPrefs.GetString("score") + "%":"There aren't any score";
+        score.text =PlayerPrefs.HasKey("score")? scorepercent + "%":"There aren't any score";
     }
     public void backToLobby()
     {
-        show(false);
+        show(0,false);
         gameManager.ChangeRoom("lobby");
     }
 }

@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         health = StartingHealth;
+        isDead = false;
         input = GetComponent<PlayerInput>();
         input.currentActionMap.Enable();
         this.gameObject.transform.position = new Vector3(0, 0, 0);
@@ -80,11 +81,11 @@ public class Player : MonoBehaviour
     {
         isDead = true;
         //ici anim de mort
-        if (boss != null)
+        if (boss != null && PlayerPrefs.GetInt("score") < (int)boss.pourcentageFait)
             PlayerPrefs.SetInt("score",(int)boss.pourcentageFait);
         PlayerPrefs.Save();
         input.currentActionMap.Disable();
-        deathUI.show();
+        deathUI.show((int)boss.pourcentageFait);
     }
     public IEnumerator InvincibilityFrames(Color color)
     {

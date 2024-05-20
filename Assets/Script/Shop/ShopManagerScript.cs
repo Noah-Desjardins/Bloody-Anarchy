@@ -4,21 +4,23 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 
 
 public class ShopManagerScript : MonoBehaviour
 {
     [SerializeField] int[] pris;
     public int[,] shopItem ;
-    [SerializeField] float pourcentage;
+    int pourcentage;
     [SerializeField] TextMeshProUGUI PourcentageTxt;
     [SerializeField] GameObject Shop;
 
     void Start()
     {
         shopItem = new int[3, pris.Length + 1];
-        PourcentageTxt.text = "Vous avez fait " + pourcentage.ToString() + "% du boss";
 
 
         for (int i = 1; i < shopItem.GetLength(1); i++)
@@ -30,6 +32,21 @@ public class ShopManagerScript : MonoBehaviour
             shopItem[2, i] = pris[i - 1];
         }
 
+    }
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (PlayerPrefs.HasKey("score"))
+        pourcentage = PlayerPrefs.GetInt("score");
+        print(pourcentage);
+        PourcentageTxt.text = "Vous avez fait " + pourcentage + "% du boss";
     }
     public void AfficherShop()
     {
