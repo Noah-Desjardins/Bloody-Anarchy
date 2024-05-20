@@ -27,6 +27,7 @@ TagManager:
   - deathui
   - bossGeneral
   - ShopManager
+  - boss
   layers:
   - Default
   - TransparentFX

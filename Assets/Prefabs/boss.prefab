@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3388865595962244989}
   m_Layer: 0
   m_Name: boss
-  m_TagString: Untagged
+  m_TagString: boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,12 +155,12 @@ MonoBehaviour:
   vitesse: 2
   distanceEsquive: 5
   vitesseAttack: 2
+  nextPhase: {fileID: 0}
+  titreBoss: {fileID: 0}
+  empecherMoveJoueur: {fileID: 0}
   projectile: {fileID: 7613764599475349147, guid: f04740afc818e1641a245149f8101b04, type: 3}
   explosionSign: {fileID: 861891379883691616, guid: 3a11f56ebf6ca8f4fb9550653744aadc, type: 3}
-  target: {fileID: 0}
   damageZone: {fileID: 7466921219814289123, guid: 8ed3363a89bb54046b498ce981665215, type: 3}
-  uicontroller: {fileID: 0}
-  empecherMoveJoueur: {fileID: 0}
   healthBar: {fileID: 0}
 --- !u!95 &3388865595962244989
 Animator:

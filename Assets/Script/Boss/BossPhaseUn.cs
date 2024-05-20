@@ -27,6 +27,8 @@ public class BossPhaseUn : MonoBehaviour
     Animator animator;
     GameObject target;
     UIController uicontroller;
+    Transform parentTransform;
+    [SerializeField]  GameObject nextPhase;
 
     [SerializeField] TextMeshProUGUI titreBoss;
     [SerializeField] GameObject empecherMoveJoueur;
@@ -41,10 +43,11 @@ public class BossPhaseUn : MonoBehaviour
         uicontroller = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
             
         camController = FindAnyObjectByType<CameraController>();
-        bossGeneral = GetComponent<BossGeneral>();
+        bossGeneral = GetComponentInParent<BossGeneral>();
         joueur = target.GetComponent<Player>();
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        parentTransform = GetComponentInParent<Transform>();
 
         vieRestant = vie;
         vitesseAttackRestant = vitesseAttack;
@@ -91,8 +94,14 @@ public class BossPhaseUn : MonoBehaviour
             }
             vitesseAttackRestant += Time.deltaTime;
             if (vieRestant <= 0)
-                Destroy(gameObject);
+                NextPhase();
         }
+    }
+    void NextPhase()
+    {
+        GameObject temp = Instantiate(nextPhase, transform.position, Quaternion.identity, transform.parent);
+        if (temp != null)
+            Destroy(gameObject);
     }
     IEnumerator ApparaitreBoss()
     {

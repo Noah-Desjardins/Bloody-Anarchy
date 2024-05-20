@@ -372,7 +372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc41e8e04621b240972c32b50afb1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 2320408351309284615}
   afficherJoueur: 1
 --- !u!1 &251913517
 GameObject:
@@ -8822,6 +8821,54 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &490512450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 490512452}
+  - component: {fileID: 490512451}
+  m_Layer: 0
+  m_Name: BossGeneral
+  m_TagString: bossGeneral
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &490512451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490512450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817c56ff9e9c78c4b97d90d3ec7fae76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vieTotal: 10000
+  vieRestant: 0
+  pourcentageFait: 0
+--- !u!4 &490512452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490512450}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8837622420127061098}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1041986668
 GameObject:
   m_ObjectHideFlags: 0
@@ -11575,13 +11622,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8837622420127061098}
   - component: {fileID: 2346633064860525071}
-  - component: {fileID: 6359795509750808894}
   - component: {fileID: 2654359681142521488}
   - component: {fileID: 3388865594396442259}
   - component: {fileID: 1867891184}
   m_Layer: 0
   m_Name: boss
-  m_TagString: bossGeneral
+  m_TagString: boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11650,11 +11696,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f640a1ce6133b4f8cbc420e824f092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vie: 1000
+  vie: 100
   attack: 5
   vitesse: 2
   distanceEsquive: 5
   vitesseAttack: 2
+  nextPhase: {fileID: 3727515009926891838, guid: db3e49cdbda7d63418f5b63d9da4d38c, type: 3}
   titreBoss: {fileID: 98539201}
   empecherMoveJoueur: {fileID: 208784795}
   projectile: {fileID: 7613764599475349147, guid: f04740afc818e1641a245149f8101b04, type: 3}
@@ -11682,21 +11729,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6359795509750808894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2320408351309284615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 817c56ff9e9c78c4b97d90d3ec7fae76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vieTotal: 10000
-  vieRestant: 0
-  pourcentageFait: 0
 --- !u!4 &8837622420127061098
 Transform:
   m_ObjectHideFlags: 0
@@ -11705,13 +11737,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2320408351309284615}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.27, y: 11.88, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.16, y: 12.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1644358799}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 490512452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -11722,4 +11754,4 @@ SceneRoots:
   - {fileID: 1328464322}
   - {fileID: 208784796}
   - {fileID: 1297053931}
-  - {fileID: 8837622420127061098}
+  - {fileID: 490512452}

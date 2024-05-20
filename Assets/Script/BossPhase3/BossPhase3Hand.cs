@@ -18,7 +18,7 @@ public class BossPhase3Hand : MonoBehaviour
 
     public int health = 500;
 
-    [SerializeField] Player player;
+    Player player;
     [SerializeField] float speed = 5f;
 
     BossPhase3 boss;
@@ -50,6 +50,7 @@ public class BossPhase3Hand : MonoBehaviour
         localPos = transform.localPosition;
         sr = GetComponent<SpriteRenderer>();
         boss = GetComponentInParent<BossPhase3>();
+        player = GameObject.FindGameObjectWithTag("player").GetComponent<Player>();
        //StartCoroutine(testAttack());
     }
     private void OnEnable()
@@ -111,7 +112,7 @@ public class BossPhase3Hand : MonoBehaviour
     {
         isAttacking = false;
         isGoingBack = true;
-        while (Mathf.Abs((transform.localPosition - localPos).magnitude) >= 1f && !isAttacking)
+        while (Mathf.Abs((transform.localPosition - localPos).magnitude) >= 1.5f && !isAttacking)
         {
             transform.rotation = Quaternion.LookRotation(Vector3.forward, localPos - transform.localPosition);
             yield return null;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2450,6 +2450,10 @@ PrefabInstance:
     - target: {fileID: 390731517473620846, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 913502767079166181, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
+      propertyPath: GodMod
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2387030836747031327, guid: de539c7c5020b9d4088f7f0307931557, type: 3}
       propertyPath: ShopUI
@@ -5706,8 +5710,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.50003, y: 0.4781}
-  m_SizeDelta: {x: 809, y: 461.04}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 880, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1214140552
 MonoBehaviour:
@@ -7161,7 +7165,8 @@ MonoBehaviour:
   - {fileID: 7613764599475349147, guid: f04740afc818e1641a245149f8101b04, type: 3}
   - {fileID: 2971525184754346135, guid: a7027c472199cd74580ef825d7867363, type: 3}
   - {fileID: 861891379883691616, guid: 3a11f56ebf6ca8f4fb9550653744aadc, type: 3}
-  nombreAPool: 190000004b0000001900000019000000
+  - {fileID: 3134732566806855059, guid: a674ed2560812ca4e93242acdb40a25e, type: 3}
+  nombreAPool: 190000004b00000019000000190000004b000000
 --- !u!114 &1507859531
 MonoBehaviour:
   m_ObjectHideFlags: 0

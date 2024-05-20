@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class BossPhase3 : MonoBehaviour
 {
-    [SerializeField] Player player;
+    Player player;
     [SerializeField] int startHealth = 6000;
     int health;
     [SerializeField] int attack = 5;
@@ -16,7 +16,8 @@ public class BossPhase3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _followOffset = transform.position - player.transform.position;
+        player = GameObject.FindGameObjectWithTag("player").GetComponent<Player>();
+        _followOffset = new Vector3(player.transform.position.x, player.transform.position.y + 5) - player.transform.position;
         health = startHealth;
         healthBar.value = 1;
     }
