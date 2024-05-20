@@ -19,7 +19,10 @@ GameObject:
   - component: {fileID: 322171272827992434}
   - component: {fileID: 4227506980278976394}
   - component: {fileID: 5312140187189892881}
-  m_Layer: 0
+  - component: {fileID: 6970283938991788662}
+  - component: {fileID: 2886243321936924481}
+  - component: {fileID: 6342773027682341858}
+  m_Layer: 7
   m_Name: Player
   m_TagString: player
   m_Icon: {fileID: 0}
@@ -35,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 6322911830811641988}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.09, y: -0.45, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -105,8 +108,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c41a8ebb6636a3e4da2a45030139cdcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vie: 100
-  degat: 1
+  StartingHealth: 100
+  nbPotions: 0
+  health: 100
+  damage: 10
+  GodMod: 0
 --- !u!114 &722053824778704094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +158,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 322171272827992434}
         m_TargetAssemblyTypeName: PlayerMelee, Assembly-CSharp
+        m_MethodName: Attack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5312140187189892881}
+        m_TargetAssemblyTypeName: PlayerShoot, Assembly-CSharp
         m_MethodName: Attack
         m_Mode: 0
         m_Arguments:
@@ -220,6 +238,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c38defd2-f13f-492c-8f0f-f5b7112816fa
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2886243321936924481}
+        m_TargetAssemblyTypeName: PlayerPotion, Assembly-CSharp
+        m_MethodName: ConsumePotion
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: aa880940-1637-48ce-996c-c043a06e3943
+    m_ActionName: Player/Potion[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -241,7 +275,6 @@ MonoBehaviour:
   rollSpeed: 10
   speed: 0
   ShopUI: {fileID: 0}
-  abilityContainer: {fileID: 0}
 --- !u!95 &293178152421225665
 Animator:
   serializedVersion: 5
@@ -350,7 +383,6 @@ MonoBehaviour:
   attackPrefab: {fileID: 4519181844315547791, guid: f9995d46d64ae33408635579c9b346ab, type: 3}
   damageZone: {fileID: 0}
   shop: {fileID: 0}
-  abilityContainer: {fileID: 0}
 --- !u!114 &4227506980278976394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,10 +398,12 @@ MonoBehaviour:
   AbilitiesPrefabs:
   - {fileID: 2340854694477489776, guid: 9f6993272b643c44085e06f6ae03d165, type: 3}
   - {fileID: 1758552164946363396, guid: 6f71309cb2c13d543aab612afa1928ba, type: 3}
-  abilityContainer: {fileID: 0}
+  - {fileID: 8433461123506007845, guid: 6aeacc97cf6d810468da176725f98cb8, type: 3}
   canRoll: 1
   canShoot: 0
   canSlash: 1
+  canPotion: 1
+  canPotionShield: 1
 --- !u!114 &5312140187189892881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,6 +416,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e858338ed4db68243806bca0954e36c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3741586349016922772, guid: 28b994a86273ba948aa22ac5e34cf9e0, type: 3}
+  bulletPrefab: {fileID: 7115204580150724059, guid: 28b994a86273ba948aa22ac5e34cf9e0, type: 3}
   shop: {fileID: 0}
-  abilityContainer: {fileID: 0}
+  shootingCursor: {fileID: 2800000, guid: a82de41cb80850842ad6f0d2dfa8ca92, type: 3}
+--- !u!114 &6970283938991788662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322911830811641988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8208dc6f36b414c9a7931c0a4d4395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2886243321936924481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322911830811641988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9245c763057ef94dbae276238a24c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  potionHealthGain: 10
+  potionContainer: {fileID: 0}
+--- !u!114 &6342773027682341858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322911830811641988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a218477908504c4b9076b0dbdacd554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

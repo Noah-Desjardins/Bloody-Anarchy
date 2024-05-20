@@ -30,7 +30,7 @@ public class potionContainer : MonoBehaviour
             }
             for (int i = 0; i < nbPotionsStart; i++)
             {
-                potionTemp = Instantiate(potionPrefab, new Vector3(gameObject.transform.position.x + (i * 0.5f), gameObject.transform.position.y, 0), Quaternion.identity, gameObject.transform);               
+                potionTemp = Instantiate(potionPrefab, new Vector3(gameObject.transform.position.x + (i * 25f), gameObject.transform.position.y,100), Quaternion.identity, gameObject.transform);               
                 if (i >= nbPotions)
                 {
                     imagePotionTemp = potionTemp.GetComponentInChildren<Image>();

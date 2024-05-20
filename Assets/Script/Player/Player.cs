@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 
 public class Player : MonoBehaviour
 {
@@ -13,7 +14,12 @@ public class Player : MonoBehaviour
     public int nbPotions = 0;
     public int health = 100;
     public int damage = 1;
+    bool isDead = false;
     bool invincible = false;
+
+    BossGeneral boss;
+    deathUI deathUI;
+    PlayerInput input;
 
     SpriteRenderer sr;
     Color spriteColor;
@@ -24,11 +30,12 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        health = StartingHealth;
         healthBar = GameObject.FindGameObjectWithTag("healtBar").GetComponent<Image>();
         sr = GetComponent<SpriteRenderer>();
         spriteColor = sr.color;
-
-        health = StartingHealth;
+        
+        
     }
     private void Awake()
     {
@@ -40,25 +47,45 @@ public class Player : MonoBehaviour
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        health = StartingHealth;
+        input = GetComponent<PlayerInput>();
+        input.currentActionMap.Enable();
         this.gameObject.transform.position = new Vector3(0, 0, 0);
+        if (GameObject.FindGameObjectWithTag("bossGeneral"))
+        {
+            boss = GameObject.FindGameObjectWithTag("bossGeneral").GetComponent<BossGeneral>();
+        }
+        deathUI = GameObject.FindGameObjectWithTag("deathui").GetComponent<deathUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
         HealthBarManager();
-        if (health <= 0 && !GodMod)
+        if (health <= 0 && !GodMod && !isDead)
         {
-            Destroy(gameObject);
+            killPlayer();
         }
     }
     public void HealthBarManager()
     {
-        if (healthBar.fillAmount * StartingHealth != health)
+        if ((int)(healthBar.fillAmount * StartingHealth) != health)
+        {
             healthBar.fillAmount = (float)health / StartingHealth;
+        }
+            
 
     }
-
+    void killPlayer()
+    {
+        isDead = true;
+        //ici anim de mort
+        if (boss != null)
+            PlayerPrefs.SetInt("score",(int)boss.pourcentageFait);
+        PlayerPrefs.Save();
+        input.currentActionMap.Disable();
+        deathUI.show();
+    }
     public IEnumerator InvincibilityFrames(Color color)
     {
         //Les frame d'invicibilité avant d'etre vulnérable

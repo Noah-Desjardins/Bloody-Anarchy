@@ -23,6 +23,10 @@ TagManager:
   - FadeBlack
   - UIController
   - empecherJoueurBouger
+  - score
+  - deathui
+  - bossGeneral
+  - ShopManager
   layers:
   - Default
   - TransparentFX

@@ -7,9 +7,10 @@ public class Door : MonoBehaviour
 {
     // Start is called before the first frame update.
     [SerializeField] string whereToGo = "Lobby";
-    [SerializeField] GameManager gameManager;
+    GameManager gameManager;
     void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

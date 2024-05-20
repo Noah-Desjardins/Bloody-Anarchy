@@ -24,7 +24,7 @@ public class AbilityContainer : MonoBehaviour
             }
             for (int i = 0; i < allAbilities.Count; i++)
             {
-                Instantiate(allAbilities[i], new Vector3(gameObject.transform.position.x + (i * -2.2f), gameObject.transform.position.y, 0), Quaternion.identity, gameObject.transform);
+                Instantiate(allAbilities[i], new Vector3(gameObject.transform.position.x + (i * -120f), gameObject.transform.position.y, 100), Quaternion.identity, gameObject.transform);
 
             }
             abilitiesCountTemp = allAbilities.Count;

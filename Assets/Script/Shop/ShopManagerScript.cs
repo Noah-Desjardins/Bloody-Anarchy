@@ -31,6 +31,10 @@ public class ShopManagerScript : MonoBehaviour
         }
 
     }
+    public void AfficherShop()
+    {
+        Shop.SetActive(true);
+    }
 
     // Update is called once per frame
     public void Acheter()
@@ -43,8 +47,5 @@ public class ShopManagerScript : MonoBehaviour
         }
     }
 
-    public void AfficherShop()
-    {
-        Shop.SetActive(true);
-    }
+   
 }
