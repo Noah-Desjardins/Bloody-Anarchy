@@ -65,15 +65,20 @@ public class PlayerShoot : MonoBehaviour
     {
         foreach (Cooldown cooldown in abilityContainer.GetComponentsInChildren<Cooldown>())
         {
+            print(cooldown.tag);
             if (cooldown.tag == "canShoot")
+            {
+                
                 shootingCooldown = cooldown;
-            print(shootingCooldown);
+            }
+               
         }
     }
     public void Shoot()
     {
         if (!shop.activeSelf)
         {
+            
             if (playerAbility.GetAbility("canShoot") && !shootingCooldown.isCoolingDown)
             {
                 mousePosition = Input.mousePosition;

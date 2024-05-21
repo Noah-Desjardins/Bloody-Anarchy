@@ -7,11 +7,11 @@ public class PlayerAbility : MonoBehaviour
 {
     [SerializeField] List<GameObject> AbilitiesPrefabs;
     AbilityContainer abilityContainer;
-    [SerializeField] bool canRoll = false;
-    [SerializeField] bool canShoot = false;
-    [SerializeField] bool canSlash = false;
-    [SerializeField] bool canPotion = false;
-    [SerializeField] bool canPotionShield = false;
+    bool canRoll = false;
+    bool canShoot = false;
+    bool canSlash = true;
+    bool canPotion = false;
+    bool canPotionShield = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,20 +27,30 @@ public class PlayerAbility : MonoBehaviour
     }
     public void showAbility()
     {
+        eraseAbility();
         foreach (var ability in AbilitiesPrefabs)
         {
             // Un peu mal fait mais il faut que le tag du prefab de l'Abileté soit la clé du playerPref :)
             if (GetAbility(ability.tag))
             {
+                print("add");
                 abilityContainer.allAbilities.Add(ability);
             }
-            else
+            /*else
             {
                 if (PlayerPrefs.HasKey(ability.tag))
                 {
                     abilityContainer.allAbilities.Remove(ability);
                 }
-            }
+            }*/
+        }
+    }
+    void eraseAbility()
+    {
+        foreach (var ability in AbilitiesPrefabs)
+        {
+            abilityContainer.allAbilities.Remove(ability);
+            print("remove");
         }
     }
 
@@ -49,8 +59,8 @@ public class PlayerAbility : MonoBehaviour
         if (PlayerPrefs.HasKey(abilityName))
         {
             PlayerPrefs.SetInt(abilityName, PlayerPrefs.GetInt(abilityName) == 0 ? 1:0);
-            showAbility();
             PlayerPrefs.Save();
+            showAbility();
         }
         
     }

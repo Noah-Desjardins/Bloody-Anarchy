@@ -5,9 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerPotion : MonoBehaviour
 {
-    public int potionHealthGain = 10;
+    int potionHealthGain;
+    public float gainPercent = 0.25f;
     Player player;
     [SerializeField] potionContainer potionContainer;
+
     PlayerAbility playerAbility;
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,7 @@ public class PlayerPotion : MonoBehaviour
 
     public void ConsumePotion(InputAction.CallbackContext context)
     {
+        potionHealthGain = (int)(player.StartingHealth * gainPercent);
         if (playerAbility.GetAbility("canPotion") && context.started && potionContainer.nbPotions > 0 && player.health < 100)
         {
             if ((player.health + potionHealthGain) > player.StartingHealth)
