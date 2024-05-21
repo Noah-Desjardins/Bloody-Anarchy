@@ -65,7 +65,6 @@ public class PlayerShoot : MonoBehaviour
     {
         foreach (Cooldown cooldown in abilityContainer.GetComponentsInChildren<Cooldown>())
         {
-            print(cooldown.tag);
             if (cooldown.tag == "canShoot")
             {
                 

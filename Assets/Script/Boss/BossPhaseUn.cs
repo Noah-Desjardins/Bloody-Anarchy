@@ -260,6 +260,7 @@ public class BossPhaseUn : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        print(collision.tag);
         if (collision.tag == "damageZone")
         {
             bossGeneral.vieRestant -= joueur.damage;

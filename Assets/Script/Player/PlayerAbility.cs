@@ -33,7 +33,7 @@ public class PlayerAbility : MonoBehaviour
             // Un peu mal fait mais il faut que le tag du prefab de l'Abileté soit la clé du playerPref :)
             if (GetAbility(ability.tag))
             {
-                print("add");
+                print(ability.tag);
                 abilityContainer.allAbilities.Add(ability);
             }
             /*else
@@ -44,6 +44,7 @@ public class PlayerAbility : MonoBehaviour
                 }
             }*/
         }
+        abilityContainer.ShowAbility();
     }
     void eraseAbility()
     {
