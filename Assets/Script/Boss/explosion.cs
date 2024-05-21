@@ -1,25 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Explosion : MonoBehaviour
 {
     [SerializeField] GameObject explosion;
-    // Start is called before the first frame update
+    [SerializeField] AudioClip explosionSound;
+
+    AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(Exploser());
     }
+
     void OnEnable()
     {
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(Exploser());
     }
 
     IEnumerator Exploser()
     {
         yield return new WaitForSeconds(1f);
+        audioSource.PlayOneShot(explosionSound);
         GameObject explosionTemp = ObjectPool.instance.GetPoolObject(explosion);
         if (explosionTemp != null)
         {

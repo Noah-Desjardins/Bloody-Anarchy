@@ -7,17 +7,17 @@ using UnityEngine;
 
 public class BossPhase3AttacksManager : MonoBehaviour
 {
-    enum HandAttack { rushPlayer, rushPlayerXtrem, shootFromTop , shootLine, bulletParry, shootArroundPlayer }
+    enum HandAttack { rushPlayer, rushPlayerXtrem, shootFromTop, shootLine, bulletParry, shootArroundPlayer }
     // Start is called before the first frame update
     List<BossPhase3Hand> hands = new();
     public bool fightHasStarted = false;
     public bool fightHasEnded = false;
+
     void Start()
     {
         hands = GetComponentsInChildren<BossPhase3Hand>().ToList();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!fightHasStarted)
@@ -27,6 +27,7 @@ public class BossPhase3AttacksManager : MonoBehaviour
         }
         innactiveHandsBack();
     }
+
     IEnumerator disableHand(BossPhase3Hand hand)
     {
         GameObject handtemp = hand.gameObject;
@@ -34,6 +35,7 @@ public class BossPhase3AttacksManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         handtemp.SetActive(true);
     }
+
     IEnumerator startHandsAttack()
     {
         while (!fightHasEnded)
@@ -46,8 +48,8 @@ public class BossPhase3AttacksManager : MonoBehaviour
                 {
                     case HandAttack.rushPlayer:
                         print("rushPlayer");
-                        StartCoroutine(hands[(int)hand].rushPlayer(1.5f,8f));
-                    break;
+                        StartCoroutine(hands[(int)hand].rushPlayer(1.5f, 8f));
+                        break;
 
                     case HandAttack.rushPlayerXtrem:
                         print("rushPlayerXtrem");
@@ -77,7 +79,8 @@ public class BossPhase3AttacksManager : MonoBehaviour
             }
         }
     }
-    HandAttack pickHandAttack() => (HandAttack)Enum.GetValues(typeof(HandAttack)).GetValue(UnityEngine.Random.Range(0,6));
+
+    HandAttack pickHandAttack() => (HandAttack)UnityEngine.Random.Range(0, 6);
 
     void innactiveHandsBack()
     {
@@ -93,6 +96,7 @@ public class BossPhase3AttacksManager : MonoBehaviour
             }
         }
     }
+
     int? pickHand()
     {
         List<int> handsReady = new List<int>();
@@ -103,13 +107,11 @@ public class BossPhase3AttacksManager : MonoBehaviour
         }
         if (handsReady.Count > 0)
         {
-            return handsReady[UnityEngine.Random.Range(0, handsReady.Count)] ;
+            return handsReady[UnityEngine.Random.Range(0, handsReady.Count)];
         }
         else
         {
             return null;
         }
     }
-    
-
 }
