@@ -29,17 +29,20 @@ public class GameManager : MonoBehaviour
     {
         
     }
-    public void ChangeRoom(string sceneName)
+    public void ChangeRoom(string sceneName, bool attende = true)
     {
         PlayerPrefs.SetString("LevelToLoad", sceneName);
         PlayerPrefs.Save();
-        StartCoroutine(waitForFade());
+        StartCoroutine(waitForFade(attende));
     }
-    IEnumerator waitForFade()
+    IEnumerator waitForFade(bool attende)
     {
         //FADE ICI
-        StartCoroutine(uicontroller.Fade());
-        yield return new WaitForSeconds(1.5f);
+        if (attende)
+        {
+            StartCoroutine(uicontroller.Fade());
+            yield return new WaitForSeconds(1.5f);
+        }
         SceneManager.LoadScene("Load");
     }
 }
