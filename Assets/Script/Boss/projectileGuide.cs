@@ -17,7 +17,7 @@ public class ProjectileGuide : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        target = GameObject.FindGameObjectWithTag("Player");
+        target = GameObject.FindGameObjectWithTag("player");
         distance = target.transform.position - transform.position;
         transform.transform.rotation = Quaternion.LookRotation(Vector3.forward, distance);
         transform.Rotate(new Vector3(0, 0, 45), Space.World);
@@ -27,7 +27,7 @@ public class ProjectileGuide : MonoBehaviour
     void OnEnable()
     {
         audioSource = GetComponent<AudioSource>();
-        target = GameObject.FindGameObjectWithTag("Player");
+        target = GameObject.FindGameObjectWithTag("player");
         distance = target.transform.position - transform.position;
         transform.transform.rotation = Quaternion.LookRotation(Vector3.forward, distance);
         transform.Rotate(new Vector3(0, 0, 45), Space.World);

@@ -28,7 +28,7 @@ public class PlayerShoot : MonoBehaviour
 
     // Sound effect variables
     [SerializeField] AudioClip shootSound;
-    [SerializeField] AudioSource audioSource;
+    AudioSource audioSource;
 
     void Start()
     {
@@ -45,10 +45,6 @@ public class PlayerShoot : MonoBehaviour
 
         // Initialize audio source
         audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
     }
     private void Awake()
     {

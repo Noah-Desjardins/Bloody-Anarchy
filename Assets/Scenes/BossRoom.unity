@@ -8854,7 +8854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817c56ff9e9c78c4b97d90d3ec7fae76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vieTotal: 1000
+  vieTotal: 5000
   vieRestant: 0
   pourcentageFait: 0
 --- !u!4 &490512452
@@ -8871,6 +8871,147 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8837622420127061098}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &958066165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 958066168}
+  - component: {fileID: 958066167}
+  - component: {fileID: 958066166}
+  m_Layer: 0
+  m_Name: music
+  m_TagString: music
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &958066166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958066165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d668d539b340206479a0f04fdd18ce89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &958066167
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958066165}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &958066168
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958066165}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.15947238, y: 5.660518, z: 8.6631155}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1041986668
@@ -11737,8 +11878,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f640a1ce6133b4f8cbc420e824f092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vie: 100
-  attack: 5
+  vie: 2000
+  attack: 25
   vitesse: 2
   distanceEsquive: 5
   vitesseAttack: 2
@@ -11749,6 +11890,10 @@ MonoBehaviour:
   explosionSign: {fileID: 861891379883691616, guid: 3a11f56ebf6ca8f4fb9550653744aadc, type: 3}
   damageZone: {fileID: 7466921219814289123, guid: 8ed3363a89bb54046b498ce981665215, type: 3}
   healthBar: {fileID: 1200337072}
+  projectileSound: {fileID: 0}
+  explosionSound: {fileID: 0}
+  bossRoarSound: {fileID: 0}
+  music: {fileID: 8300000, guid: 2cd831b9ab3fdcc42a820e7f27fd3ff4, type: 3}
 --- !u!95 &3388865594396442259
 Animator:
   serializedVersion: 5
@@ -11823,3 +11968,4 @@ SceneRoots:
   - {fileID: 208784796}
   - {fileID: 1297053931}
   - {fileID: 490512452}
+  - {fileID: 958066168}

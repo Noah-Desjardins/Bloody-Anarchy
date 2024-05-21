@@ -19,7 +19,7 @@ public class PlayerMelee : MonoBehaviour
 
     // Sound effect variables
     [SerializeField] AudioClip slashSound;
-    [SerializeField] AudioSource audioSource;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -32,10 +32,6 @@ public class PlayerMelee : MonoBehaviour
 
         // Initialize audio source
         audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
     }
 
     public void setSlashingCooldown()

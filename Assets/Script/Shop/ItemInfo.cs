@@ -55,7 +55,6 @@ public class ItemInfo : MonoBehaviour
                 break;
             case 8: // une potion 25% de vie
                 potionContainer.nbPotions = 1;
-                playerPotion.gainPercent = 0.25f;
                 PlayerAbility.SwitchAbility("canPotion");
                 break;
             case 9: // GUN
@@ -67,7 +66,6 @@ public class ItemInfo : MonoBehaviour
                 break;
             case 11: // 2 potions
                 potionContainer.nbPotions = 2;
-                playerPotion.gainPercent = 0.50f;
                 break;
             case 12: // REVIVE not implemented
                 break;
@@ -75,7 +73,6 @@ public class ItemInfo : MonoBehaviour
                 break;
             case 14: // 3 potion
                 potionContainer.nbPotions = 3;
-                playerPotion.gainPercent = 0.75f;
                 break;
             case 15: // win
                 break;

@@ -42,7 +42,6 @@ public class BossPhaseDeux : MonoBehaviour
 
         StartCoroutine(Esquive());
         StartCoroutine(Attack());
-        StartCoroutine(ApparaitreBoss());
     }
 
     void Update()
@@ -58,18 +57,7 @@ public class BossPhaseDeux : MonoBehaviour
         }
     }
 
-    IEnumerator ApparaitreBoss()
-    {
-        camController.afficherJoueur = false;
-        empecherMoveJoueur.SetActive(true);
-        yield return new WaitForSeconds(2);
-        StartCoroutine(uicontroller.FadeText());
-        yield return new WaitForSeconds(4);
-        StartCoroutine(uicontroller.FadeText(false));
-        camController.afficherJoueur = true;
-        empecherMoveJoueur.SetActive(false);
-        bossPret = true;
-    }
+    
 
     IEnumerator Attack()
     {

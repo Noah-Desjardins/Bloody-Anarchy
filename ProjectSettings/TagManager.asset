@@ -28,6 +28,7 @@ TagManager:
   - bossGeneral
   - ShopManager
   - boss
+  - music
   layers:
   - Default
   - TransparentFX

@@ -13,13 +13,18 @@ public class BossPhase3 : MonoBehaviour
     [SerializeField] Slider healthBar;
     float followSharpness = 0.005f;
     Vector3 _followOffset;
-
+    changeMusicPhase audioSource;
+    [SerializeField] AudioClip music;
+    BossGeneral bossGeneral;
     void Start()
     {
+        audioSource = GameObject.FindGameObjectWithTag("music").GetComponent<changeMusicPhase>();
+        bossGeneral = GetComponentInParent<BossGeneral>();
         player = GameObject.FindGameObjectWithTag("player").GetComponent<Player>();
         _followOffset = new Vector3(player.transform.position.x, player.transform.position.y + 5) - player.transform.position;
         health = startHealth;
         healthBar.value = 1;
+        audioSource.changeMusic(music);
     }
 
     void Update()
@@ -30,6 +35,7 @@ public class BossPhase3 : MonoBehaviour
 
     public void takeDamage(int damage)
     {
+        bossGeneral.vieRestant -= damage;
         health -= damage;
         healthBar.value = (float)health / startHealth;
     }
@@ -41,7 +47,10 @@ public class BossPhase3 : MonoBehaviour
             Bullet bullet = collision.GetComponent<Bullet>();
             int damage = bullet.howManyDamage() / 5;
             takeDamage(damage);
-            health -= damage;
+        }
+        if (collision.tag == "damageZone")
+        {
+            takeDamage(player.damage);
         }
     }
 }

@@ -28,10 +28,10 @@ public class BossPhaseUn : MonoBehaviour
     GameObject target;
     UIController uicontroller;
     Transform parentTransform;
-    [SerializeField]  GameObject nextPhase;
+    PlayerMovement playerMovement;
 
+    [SerializeField]  GameObject nextPhase;
     [SerializeField] TextMeshProUGUI titreBoss;
-    [SerializeField] GameObject empecherMoveJoueur;
     [SerializeField] GameObject projectile;
     [SerializeField] GameObject explosionSign;
     [SerializeField] GameObject damageZone;
@@ -40,25 +40,29 @@ public class BossPhaseUn : MonoBehaviour
     [SerializeField] AudioClip explosionSound;
     [SerializeField] AudioClip bossRoarSound;
 
-    AudioSource audioSource;
+    changeMusicPhase audioSource;
+    [SerializeField] AudioClip music;
 
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("player");
         uicontroller = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
-            
-        audioSource = GetComponent<AudioSource>();
+
+        audioSource = GameObject.FindGameObjectWithTag("music").GetComponent<changeMusicPhase>();
         camController = FindAnyObjectByType<CameraController>();
         bossGeneral = GetComponentInParent<BossGeneral>();
         joueur = target.GetComponent<Player>();
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         parentTransform = GetComponentInParent<Transform>();
+        playerMovement = target.GetComponent<PlayerMovement>();
 
         vieRestant = vie;
         vitesseAttackRestant = vitesseAttack;
         healthBar.maxValue = vie;
         healthBar.value = vieRestant;
+        
+        audioSource.changeMusic(music);
 
         StartCoroutine(Esquive());
         StartCoroutine(Attack());
@@ -110,9 +114,9 @@ public class BossPhaseUn : MonoBehaviour
     IEnumerator ApparaitreBoss()
     {
         camController.afficherJoueur = false; //mettre camera sur boss
-        empecherMoveJoueur.SetActive(true);
-        audioSource.PlayOneShot(bossRoarSound);
 
+        //audioSource.PlayOneShot(bossRoarSound);
+        playerMovement.canMove = false;
         yield return new WaitForSeconds(2);
 
         StartCoroutine(FadeText()); // afficher le titre du boss
@@ -121,7 +125,7 @@ public class BossPhaseUn : MonoBehaviour
 
         StartCoroutine(FadeText(false)); // effacer le titre du boss
         camController.afficherJoueur = true; //mettre camera sur joueur
-        empecherMoveJoueur.SetActive(false);
+        playerMovement.canMove = true;
         bossPret = true;
     }
     public IEnumerator FadeText(bool fade = true, float fadeSpeed = 1f)
@@ -191,7 +195,7 @@ public class BossPhaseUn : MonoBehaviour
                     projectileTemp.transform.position = transform.position;
                     projectileTemp.transform.rotation = transform.rotation;
                     projectileTemp.SetActive(true);
-                    audioSource.PlayOneShot(projectileSound);
+                    //audioSource.PlayOneShot(projectileSound);
                 }
                 nombreDeBalle--;
                 yield return new WaitForSeconds(0.2f);
@@ -215,7 +219,7 @@ public class BossPhaseUn : MonoBehaviour
                 explosionSignTemp.transform.position = target.transform.position;
                 explosionSignTemp.transform.rotation = transform.rotation;
                 explosionSignTemp.SetActive(true);
-                audioSource.PlayOneShot(explosionSound);
+                //audioSource.PlayOneShot(explosionSound);
             }
             nombreExplosion--;
             yield return new WaitForSeconds(1f);
@@ -267,7 +271,6 @@ public class BossPhaseUn : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print(collision.tag);
         if (collision.tag == "damageZone")
         {
             bossGeneral.vieRestant -= joueur.damage;
