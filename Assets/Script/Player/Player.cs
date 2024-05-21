@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
         {
             if (collision.tag == "sword")
             {
-                projectileGuide projectile = collision.GetComponent<projectileGuide>();
+                ProjectileGuide projectile = collision.GetComponent<ProjectileGuide>();
                 health -= projectile.degat;
                 PlayHitSound();
             }

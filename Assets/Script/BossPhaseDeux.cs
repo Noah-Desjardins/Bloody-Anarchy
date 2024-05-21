@@ -23,7 +23,6 @@ public class BossPhaseDeux : MonoBehaviour
     Rigidbody2D rb;
     bool bossPret = false;
     bool peutBouger = true;
-    CameraController camController;
     BossGeneral bossGeneral;
     Player joueur;
 
@@ -31,7 +30,6 @@ public class BossPhaseDeux : MonoBehaviour
     {
         bossGeneral = GetComponent<BossGeneral>();
         joueur = FindObjectOfType<Player>();
-        camController = FindObjectOfType<CameraController>();
         vieRestant = vie;
         rb = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
@@ -42,7 +40,6 @@ public class BossPhaseDeux : MonoBehaviour
 
         StartCoroutine(Esquive());
         StartCoroutine(Attack());
-        StartCoroutine(ApparaitreBoss());
     }
 
     void Update()
@@ -56,19 +53,6 @@ public class BossPhaseDeux : MonoBehaviour
                     transform.Translate(VectorPos.normalized * vitesse * Time.deltaTime);
             }
         }
-    }
-
-    IEnumerator ApparaitreBoss()
-    {
-        camController.afficherJoueur = false;
-        empecherMoveJoueur.SetActive(true);
-        yield return new WaitForSeconds(2);
-        StartCoroutine(uicontroller.FadeText());
-        yield return new WaitForSeconds(4);
-        StartCoroutine(uicontroller.FadeText(false));
-        camController.afficherJoueur = true;
-        empecherMoveJoueur.SetActive(false);
-        bossPret = true;
     }
 
     IEnumerator Attack()
