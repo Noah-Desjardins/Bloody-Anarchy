@@ -23,6 +23,7 @@ public class deathUI : MonoBehaviour
     }
     public void show(int scorepercent = 0, bool show = true)
     {
+        print(scorepercent);
         canvas.alpha = show?1.0f:0f;
         canvas.interactable = show;
 

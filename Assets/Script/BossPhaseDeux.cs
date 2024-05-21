@@ -23,6 +23,7 @@ public class BossPhaseDeux : MonoBehaviour
     Rigidbody2D rb;
     bool bossPret = false;
     bool peutBouger = true;
+    CameraController camController;
     BossGeneral bossGeneral;
     Player joueur;
 
@@ -30,6 +31,7 @@ public class BossPhaseDeux : MonoBehaviour
     {
         bossGeneral = GetComponent<BossGeneral>();
         joueur = FindObjectOfType<Player>();
+        camController = FindObjectOfType<CameraController>();
         vieRestant = vie;
         rb = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
@@ -54,6 +56,8 @@ public class BossPhaseDeux : MonoBehaviour
             }
         }
     }
+
+    
 
     IEnumerator Attack()
     {

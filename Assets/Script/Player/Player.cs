@@ -25,12 +25,13 @@ public class Player : MonoBehaviour
     Color spriteColor;
 
     Image healthBar;
+    Animator animator;
 
     [SerializeField] bool GodMod = false;
 
     // Sound effect variables
     [SerializeField] AudioClip hitSound;
-    [SerializeField] AudioSource audioSource;
+     AudioSource audioSource;
 
     void Start()
     {
@@ -38,8 +39,8 @@ public class Player : MonoBehaviour
         healthBar = GameObject.FindGameObjectWithTag("healtBar").GetComponent<Image>();
         sr = GetComponent<SpriteRenderer>();
         spriteColor = sr.color;
-        
-        
+        audioSource = GetComponent<AudioSource>();
+
     }
     private void Awake()
     {
@@ -61,7 +62,7 @@ public class Player : MonoBehaviour
             boss = GameObject.FindGameObjectWithTag("bossGeneral").GetComponent<BossGeneral>();
         }
         deathUI = GameObject.FindGameObjectWithTag("deathui").GetComponent<deathUI>();
-
+        animator = GetComponentInChildren<Animator>();
         // Initialize audio source
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
@@ -92,8 +93,8 @@ public class Player : MonoBehaviour
     void killPlayer()
     {
         isDead = true;
-        //ici anim de mort
-        if (boss != null && PlayerPrefs.GetInt("score") < (int)boss.pourcentageFait)
+        animator.SetTrigger("death");
+        if (boss != null && PlayerPrefs.GetInt("score") <= (int)boss.pourcentageFait)
             PlayerPrefs.SetInt("score",(int)boss.pourcentageFait);
         PlayerPrefs.Save();
         input.currentActionMap.Disable();
@@ -123,18 +124,22 @@ public class Player : MonoBehaviour
             {
                 ProjectileGuide projectile = collision.GetComponent<ProjectileGuide>();
                 health -= projectile.degat;
+                StartCoroutine(InvincibilityFrames(Color.red));
                 PlayHitSound();
             }
             else if (collision.tag == "Explosion")
             {
                 ExplosionDamage explsosion = collision.GetComponent<ExplosionDamage>();
                 health -= explsosion.damage;
+                StartCoroutine(InvincibilityFrames(Color.red));
                 PlayHitSound();
             }
             else if (collision.tag == "AttackBoss1")
             {
                 closeDamge close = collision.GetComponent<closeDamge>();
                 health -= close.damage;
+                StartCoroutine(InvincibilityFrames(Color.red));
+                PlayHitSound();
             }
             else if (collision.tag == "bossbullet")
             {

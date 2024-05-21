@@ -157,8 +157,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 10
-  mindamage: 5
-  maxdamage: 5
+  hitSound: {fileID: 0}
+  audioSource: {fileID: 0}
+  mindamage: 50
+  maxdamage: 125
 --- !u!114 &7575138190658559638
 MonoBehaviour:
   m_ObjectHideFlags: 0

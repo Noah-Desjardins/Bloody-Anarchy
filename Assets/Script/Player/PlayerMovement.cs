@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float vitesseDeplacement = 2.0f;
     [SerializeField] float rollSpeed = 6.0f;
     public float speed;
+    public bool canMove = true;
     public Vector2 direction { get; private set; } = Vector2.zero;
     Rigidbody2D rb;
     SpriteRenderer sr;
@@ -64,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
     void Deplacement()
     {
         animator.SetBool("walking", true);
-        if (ShopUI.activeSelf)
+        if (ShopUI.activeSelf || !canMove)
             direction = new Vector2(0, 0);
         rb.MovePosition((rb.position + direction.normalized * speed * Time.fixedDeltaTime));
     }
