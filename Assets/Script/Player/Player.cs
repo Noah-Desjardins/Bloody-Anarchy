@@ -28,6 +28,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] bool GodMod = false;
 
+    // Sound effect variables
+    [SerializeField] AudioClip hitSound;
+    [SerializeField] AudioSource audioSource;
+
     void Start()
     {
         health = StartingHealth;
@@ -57,6 +61,13 @@ public class Player : MonoBehaviour
             boss = GameObject.FindGameObjectWithTag("bossGeneral").GetComponent<BossGeneral>();
         }
         deathUI = GameObject.FindGameObjectWithTag("deathui").GetComponent<deathUI>();
+
+        // Initialize audio source
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame
@@ -68,6 +79,7 @@ public class Player : MonoBehaviour
             killPlayer();
         }
     }
+
     public void HealthBarManager()
     {
         if ((int)(healthBar.fillAmount * StartingHealth) != health)
@@ -89,7 +101,7 @@ public class Player : MonoBehaviour
     }
     public IEnumerator InvincibilityFrames(Color color)
     {
-        //Les frame d'invicibilité avant d'etre vulnérable
+        //Les frame d'invicibilitï¿½ avant d'etre vulnï¿½rable
         invincible = true;
         int nbClignotement = 21;
         while (nbClignotement > 0)
@@ -103,7 +115,6 @@ public class Player : MonoBehaviour
         sr.color = spriteColor;
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!invincible)
@@ -112,11 +123,13 @@ public class Player : MonoBehaviour
             {
                 projectileGuide projectile = collision.GetComponent<projectileGuide>();
                 health -= projectile.degat;
+                PlayHitSound();
             }
             else if (collision.tag == "Explosion")
             {
                 ExplosionDamage explsosion = collision.GetComponent<ExplosionDamage>();
                 health -= explsosion.damage;
+                PlayHitSound();
             }
             else if (collision.tag == "AttackBoss1")
             {
@@ -128,15 +141,24 @@ public class Player : MonoBehaviour
                 Bullet bullet = collision.GetComponent<Bullet>();
                 health -= bullet.howManyDamage();
                 StartCoroutine(InvincibilityFrames(Color.red));
+                PlayHitSound();
             }
             else if (collision.tag == "hand")
             {
                 BossPhase3Hand hand = collision.GetComponent<BossPhase3Hand>();
                 health -= hand.howManyDamage();
                 StartCoroutine(InvincibilityFrames(Color.red));
+                PlayHitSound();
             }
         }
-
     }
 
+    void PlayHitSound()
+    {
+        if (hitSound != null)
+        {
+            audioSource.clip = hitSound;
+            audioSource.Play();
+        }
+    }
 }

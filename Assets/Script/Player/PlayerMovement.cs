@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float vitesseDeplacement = 2.0f;
     [SerializeField] float rollSpeed = 6.0f;
-    // Start is called before the first frame update
     public float speed;
     public Vector2 direction { get; private set; } = Vector2.zero;
     Rigidbody2D rb;
@@ -27,7 +26,12 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         speed = vitesseDeplacement;
         playerAbility = GetComponent<PlayerAbility>();
+
+        // Initialize rolling cooldown
+        if (rollingCooldown == null && playerAbility.GetAbility("canRoll"))
+            setRollingCooldown();
     }
+
     public void setRollingCooldown()
     {
         foreach (Cooldown cooldown in abilityContainer.GetComponentsInChildren<Cooldown>())
@@ -36,17 +40,18 @@ public class PlayerMovement : MonoBehaviour
                 rollingCooldown = cooldown;
         }
     }
-    // Update is called once per frame
+
     void Update()
     {
+        if (direction.x > 0)
+            sr.flipX = false;
+
+        if (direction.x < 0)
+            sr.flipX = true;
+
         if (rollingCooldown == null && playerAbility.GetAbility("canRoll"))
             setRollingCooldown();
 
-        if (direction.x > 0)
-            sr.flipX = false;
-            
-        if (direction.x < 0)
-            sr.flipX = true;
         if (direction.magnitude > 0)
         {
             Deplacement();
@@ -54,8 +59,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
             animator.SetBool("walking", false);
-
     }
+
     void Deplacement()
     {
         animator.SetBool("walking", true);
@@ -63,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
             direction = new Vector2(0, 0);
         rb.MovePosition((rb.position + direction.normalized * speed * Time.fixedDeltaTime));
     }
+
     public bool flipped(bool notWhenYAxes = false)
     {
         if (!notWhenYAxes)
@@ -70,25 +76,26 @@ public class PlayerMovement : MonoBehaviour
         if (direction.y == 1 || direction.y == -1)
             return false;
         return sr.flipX;
-            
     }
+
     public void Move(InputAction.CallbackContext context)
     {
-        if(!ShopUI.activeSelf)
+        if (!ShopUI.activeSelf)
             direction = context.ReadValue<Vector2>();
     }
+
     void rollBoost()
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("roll"))
         {
             speed = rollSpeed;
-
         }
         else
         {
             speed = vitesseDeplacement;
         }
     }
+
     public void Roll(InputAction.CallbackContext context)
     {
         if (playerAbility.GetAbility("canRoll") && context.started && !rollingCooldown.isCoolingDown)
@@ -99,7 +106,5 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetTrigger("roll");
             }
         }
-
-                
     }
 }

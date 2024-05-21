@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -8,10 +9,9 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 public class PlayerShoot : MonoBehaviour
 {
     Camera cam;
-
     SpriteRenderer sr;
     Animator animator;
-    [SerializeField] GameObject bulletPrefab; // Ici ça va être bullet
+    [SerializeField] GameObject bulletPrefab; // Ici ï¿½a va ï¿½tre bullet
     [SerializeField] GameObject shop;
 
     PlayerAbility playerAbility;
@@ -25,7 +25,11 @@ public class PlayerShoot : MonoBehaviour
     PlayerCursor playerCursor;
 
     bool isShooting = false;
-    // Start is called before the first frame update
+
+    // Sound effect variables
+    [SerializeField] AudioClip shootSound;
+    [SerializeField] AudioSource audioSource;
+
     void Start()
     {
         abilityContainer = GameObject.FindGameObjectWithTag("abilityContaineur");
@@ -37,7 +41,13 @@ public class PlayerShoot : MonoBehaviour
         if (playerAbility.GetAbility("canShoot"))
         {
             playerCursor.setCursor(shootingCursor);
+        }
 
+        // Initialize audio source
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
         }
     }
     private void Awake()
@@ -53,7 +63,6 @@ public class PlayerShoot : MonoBehaviour
         cam = Camera.main;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (shootingCooldown == null && playerAbility.GetAbility("canShoot"))
@@ -61,6 +70,7 @@ public class PlayerShoot : MonoBehaviour
         if (isShooting)
             Shoot();
     }
+
     public void setShootingCooldown()
     {
         foreach (Cooldown cooldown in abilityContainer.GetComponentsInChildren<Cooldown>())
@@ -74,6 +84,7 @@ public class PlayerShoot : MonoBehaviour
                
         }
     }
+
     public void Shoot()
     {
         if (!shop.activeSelf)
@@ -89,7 +100,6 @@ public class PlayerShoot : MonoBehaviour
                 if (sr.flipX)
                 {
                     bulletTemp.transform.position = new Vector3(transform.position.x - sr.bounds.size.x / 2f, transform.position.y, transform.position.z);
-
                 }
                 else
                 {
@@ -98,13 +108,19 @@ public class PlayerShoot : MonoBehaviour
                 bulletRotation = Quaternion.LookRotation(Vector3.forward, mousePosition - bulletTemp.transform.position);
                 bulletTemp.transform.rotation = bulletRotation;
                 bulletTemp.SetActive(true);
-                //animator.SetTrigger("sideAttack");
+
+                // Play shoot sound
+                if (shootSound != null)
+                {
+                    audioSource.clip = shootSound;
+                    audioSource.Play();
+                }
             }
         }
     }
+
     public void Attack(InputAction.CallbackContext context)
     {
-
         isShooting = context.ReadValue<float>() > 0;
     }
 }

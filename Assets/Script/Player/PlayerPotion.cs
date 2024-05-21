@@ -11,17 +11,22 @@ public class PlayerPotion : MonoBehaviour
     [SerializeField] potionContainer potionContainer;
 
     PlayerAbility playerAbility;
-    // Start is called before the first frame update
+
+    // Sound effect variables
+    [SerializeField] AudioClip potionSound;
+    [SerializeField] AudioSource audioSource;
+
     void Start()
     {
         player = GetComponent<Player>();
         playerAbility = GetComponent<PlayerAbility>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Initialize audio source
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     public void ConsumePotion(InputAction.CallbackContext context)
@@ -39,7 +44,13 @@ public class PlayerPotion : MonoBehaviour
             }
 
             potionContainer.nbPotions--;
-            
+
+            // Play potion sound
+            if (potionSound != null)
+            {
+                audioSource.clip = potionSound;
+                audioSource.Play();
+            }
         }
     }
 }
