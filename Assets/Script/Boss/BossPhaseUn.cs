@@ -26,8 +26,6 @@ public class BossPhaseUn : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator animator;
     GameObject target;
-    UIController uicontroller;
-    Transform parentTransform;
     PlayerMovement playerMovement;
 
     [SerializeField]  GameObject nextPhase;
@@ -36,9 +34,6 @@ public class BossPhaseUn : MonoBehaviour
     [SerializeField] GameObject explosionSign;
     [SerializeField] GameObject damageZone;
     [SerializeField] Slider healthBar;
-    [SerializeField] AudioClip projectileSound;
-    [SerializeField] AudioClip explosionSound;
-    [SerializeField] AudioClip bossRoarSound;
 
     changeMusicPhase audioSource;
     [SerializeField] AudioClip music;
@@ -46,7 +41,6 @@ public class BossPhaseUn : MonoBehaviour
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("player");
-        uicontroller = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
 
         audioSource = GameObject.FindGameObjectWithTag("music").GetComponent<changeMusicPhase>();
         camController = FindAnyObjectByType<CameraController>();
@@ -54,7 +48,6 @@ public class BossPhaseUn : MonoBehaviour
         joueur = target.GetComponent<Player>();
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        parentTransform = GetComponentInParent<Transform>();
         playerMovement = target.GetComponent<PlayerMovement>();
 
         vieRestant = vie;
@@ -172,9 +165,6 @@ public class BossPhaseUn : MonoBehaviour
                 case 1:
                     StartCoroutine(Attack2());
                     yield return new WaitForSeconds(10f);
-                    break;
-                case 2:
-
                     break;
             }
         }

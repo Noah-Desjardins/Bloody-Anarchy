@@ -7,7 +7,7 @@ public class potionContainer : MonoBehaviour
 {
     public int nbPotions = 0;
     int nbPotionsTemp = 0;
-    int nbPotionsStart = 0;
+    public int nbPotionsStart = 0;
     [SerializeField] GameObject potionPrefab;
     [SerializeField] PlayerAbility playerAbility;
     GameObject potionTemp;

@@ -4,8 +4,6 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] float bulletSpeed;
-    [SerializeField] AudioClip hitSound;
-    [SerializeField] AudioSource audioSource;
     Animator animator;
     Collider2D bulletCollider;
     public int mindamage = 2;
@@ -19,11 +17,6 @@ public class Bullet : MonoBehaviour
         hasHit = false;
         animator = GetComponentInChildren<Animator>();
         bulletCollider = GetComponent<Collider2D>();
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
     }
     private void OnEnable()
     {
@@ -42,12 +35,6 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         StartCoroutine(waitForAnim());
-
-        if (hitSound != null)
-        {
-            audioSource.clip = hitSound;
-            audioSource.Play();
-        }
     }
     public IEnumerator waitForAnim()
     {

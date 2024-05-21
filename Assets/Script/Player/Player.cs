@@ -11,7 +11,6 @@ using UnityEngine.Windows;
 public class Player : MonoBehaviour
 {
     public int StartingHealth = 100;
-    public int nbPotions = 0;
     public int health = 100;
     public int damage = 1;
     bool isDead = false;
@@ -40,11 +39,12 @@ public class Player : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         spriteColor = sr.color;
         audioSource = GetComponent<AudioSource>();
-
+        
     }
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        
     }
     void OnDestroy()
     {
@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
         isDead = false;
         input = GetComponent<PlayerInput>();
         input.currentActionMap.Enable();
+        
         this.gameObject.transform.position = new Vector3(0, 0, 0);
         if (GameObject.FindGameObjectWithTag("bossGeneral"))
         {
@@ -69,6 +70,13 @@ public class Player : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+        //print(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("death"))
+        {
+            print("Je le set à pas mort");
+            animator.SetTrigger("notDead");
+        }
+
     }
 
     // Update is called once per frame

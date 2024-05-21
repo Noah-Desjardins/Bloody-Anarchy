@@ -10,28 +10,21 @@ public class ProjectileGuide : MonoBehaviour
     float rotation;
     [SerializeField] float vitesse = 3;
     public int degat = 25;
-    [SerializeField] AudioClip shootSound;
-
-    AudioSource audioSource;
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         target = GameObject.FindGameObjectWithTag("player");
         distance = target.transform.position - transform.position;
         transform.transform.rotation = Quaternion.LookRotation(Vector3.forward, distance);
         transform.Rotate(new Vector3(0, 0, 45), Space.World);
-        audioSource.PlayOneShot(shootSound);
     }
 
     void OnEnable()
     {
-        audioSource = GetComponent<AudioSource>();
         target = GameObject.FindGameObjectWithTag("player");
         distance = target.transform.position - transform.position;
         transform.transform.rotation = Quaternion.LookRotation(Vector3.forward, distance);
         transform.Rotate(new Vector3(0, 0, 45), Space.World);
-        audioSource.PlayOneShot(shootSound);
     }
 
     void Update()

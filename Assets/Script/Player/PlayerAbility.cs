@@ -33,16 +33,8 @@ public class PlayerAbility : MonoBehaviour
             // Un peu mal fait mais il faut que le tag du prefab de l'Abileté soit la clé du playerPref :)
             if (GetAbility(ability.tag))
             {
-                print(ability.tag);
                 abilityContainer.allAbilities.Add(ability);
             }
-            /*else
-            {
-                if (PlayerPrefs.HasKey(ability.tag))
-                {
-                    abilityContainer.allAbilities.Remove(ability);
-                }
-            }*/
         }
         abilityContainer.ShowAbility();
     }
@@ -51,7 +43,6 @@ public class PlayerAbility : MonoBehaviour
         foreach (var ability in AbilitiesPrefabs)
         {
             abilityContainer.allAbilities.Remove(ability);
-            print("remove");
         }
     }
 
