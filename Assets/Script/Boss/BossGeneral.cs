@@ -9,9 +9,11 @@ public class BossGeneral : MonoBehaviour
     public float vieRestant;
     float healthtemp;
     public float pourcentageFait = 0;
+    GameManager gameManager;
     void Start()
     {
         vieRestant = vieTotal;
+        gameManager = FindAnyObjectByType<GameManager>();
         healthtemp = 0;
     }
 
@@ -26,5 +28,10 @@ public class BossGeneral : MonoBehaviour
             healthtemp = vieRestant;
         }
 
+    }
+    public void bossDead()
+    {
+        PlayerPrefs.SetInt("score", (int)pourcentageFait);
+        gameManager.ChangeRoom("lobby");
     }
 }

@@ -263,15 +263,31 @@ public class BossPhaseUn : MonoBehaviour
     {
         if (collision.tag == "damageZone")
         {
-            bossGeneral.vieRestant -= joueur.damage;
+            if (vieRestant - joueur.damage <= 0)
+            {
+                bossGeneral.vieRestant -= vieRestant;
+            }
+            else
+            {
+                bossGeneral.vieRestant -= joueur.damage;
+            }
             vieRestant -= joueur.damage;
             healthBar.value = vieRestant;
+            print(bossGeneral.vieRestant);
         }
         else if (collision.tag == "bullet")
         {
+
             Bullet bullet = collision.GetComponent<Bullet>();
             int damage = bullet.howManyDamage();
-            bossGeneral.vieRestant -= damage;
+            if (vieRestant - damage <= 0)
+            {
+                bossGeneral.vieRestant -= vieRestant;
+            }
+            else
+            {
+                bossGeneral.vieRestant -= damage;
+            }
             vieRestant -= damage;
             healthBar.value = vieRestant;
         }
