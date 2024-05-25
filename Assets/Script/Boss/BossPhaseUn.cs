@@ -26,8 +26,6 @@ public class BossPhaseUn : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator animator;
     GameObject target;
-    UIController uicontroller;
-    Transform parentTransform;
     PlayerMovement playerMovement;
 
     [SerializeField]  GameObject nextPhase;
@@ -36,9 +34,6 @@ public class BossPhaseUn : MonoBehaviour
     [SerializeField] GameObject explosionSign;
     [SerializeField] GameObject damageZone;
     [SerializeField] Slider healthBar;
-    [SerializeField] AudioClip projectileSound;
-    [SerializeField] AudioClip explosionSound;
-    [SerializeField] AudioClip bossRoarSound;
 
     changeMusicPhase audioSource;
     [SerializeField] AudioClip music;
@@ -46,7 +41,6 @@ public class BossPhaseUn : MonoBehaviour
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("player");
-        uicontroller = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
 
         audioSource = GameObject.FindGameObjectWithTag("music").GetComponent<changeMusicPhase>();
         camController = FindAnyObjectByType<CameraController>();
@@ -54,7 +48,6 @@ public class BossPhaseUn : MonoBehaviour
         joueur = target.GetComponent<Player>();
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        parentTransform = GetComponentInParent<Transform>();
         playerMovement = target.GetComponent<PlayerMovement>();
 
         vieRestant = vie;
@@ -173,9 +166,6 @@ public class BossPhaseUn : MonoBehaviour
                     StartCoroutine(Attack2());
                     yield return new WaitForSeconds(10f);
                     break;
-                case 2:
-
-                    break;
             }
         }
         yield return null;
@@ -273,15 +263,31 @@ public class BossPhaseUn : MonoBehaviour
     {
         if (collision.tag == "damageZone")
         {
-            bossGeneral.vieRestant -= joueur.damage;
+            if (vieRestant - joueur.damage <= 0)
+            {
+                bossGeneral.vieRestant -= vieRestant;
+            }
+            else
+            {
+                bossGeneral.vieRestant -= joueur.damage;
+            }
             vieRestant -= joueur.damage;
             healthBar.value = vieRestant;
+            print(bossGeneral.vieRestant);
         }
         else if (collision.tag == "bullet")
         {
+
             Bullet bullet = collision.GetComponent<Bullet>();
             int damage = bullet.howManyDamage();
-            bossGeneral.vieRestant -= damage;
+            if (vieRestant - damage <= 0)
+            {
+                bossGeneral.vieRestant -= vieRestant;
+            }
+            else
+            {
+                bossGeneral.vieRestant -= damage;
+            }
             vieRestant -= damage;
             healthBar.value = vieRestant;
         }

@@ -33,11 +33,11 @@ public class ItemInfo : MonoBehaviour
         switch (ItemID)
         {
             case 1: //1-UP plus de vie
-                Player.StartingHealth += 150;
+                Player.StartingHealth += 50;
                 Player.health = Player.StartingHealth;
                 break;
             case 2: //Plus de Dégat
-                Player.damage += 40;
+                Player.damage += 20;
                 break;
             case 3: //REflect balle not implemented
                 break;
@@ -47,15 +47,16 @@ public class ItemInfo : MonoBehaviour
             case 5: // Balle reflect damage not implemented
                 break;
             case 6: // augment degat plus.
-                Player.damage += 250;
+                Player.damage += 50;
                 break;
             case 7: // augmente pdv plus
-                Player.health += 250;
+                Player.health += 100;
                 Player.health = Player.StartingHealth;
                 break;
             case 8: // une potion 25% de vie
-                potionContainer.nbPotions = 1;
-                PlayerAbility.SwitchAbility("canPotion");
+                potionContainer.nbPotions = potionContainer.nbPotions > 1? potionContainer.nbPotions: 1;
+                if (!PlayerAbility.GetAbility("canPotion"))
+                    PlayerAbility.SwitchAbility("canPotion");
                 break;
             case 9: // GUN
                 PlayerAbility.SwitchAbility("canSlash");
@@ -65,14 +66,18 @@ public class ItemInfo : MonoBehaviour
                 PlayerAbility.SwitchAbility("canPotionShield");
                 break;
             case 11: // 2 potions
-                potionContainer.nbPotions = 2;
+                potionContainer.nbPotions = potionContainer.nbPotions > 2 ? potionContainer.nbPotions : 2;
+                if (!PlayerAbility.GetAbility("canPotion"))
+                    PlayerAbility.SwitchAbility("canPotion");
                 break;
             case 12: // REVIVE not implemented
                 break;
             case 13: // Boss Commence avec 32% de vie en moin not implemented
                 break;
             case 14: // 3 potion
-                potionContainer.nbPotions = 3;
+                potionContainer.nbPotions = potionContainer.nbPotions > 3 ? potionContainer.nbPotions : 3;
+                if (!PlayerAbility.GetAbility("canPotion"))
+                    PlayerAbility.SwitchAbility("canPotion");
                 break;
             case 15: // win
                 break;

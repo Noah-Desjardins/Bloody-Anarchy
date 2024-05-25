@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.Windows;
 
 public class PlayerPotion : MonoBehaviour
 {
@@ -11,21 +13,25 @@ public class PlayerPotion : MonoBehaviour
 
     PlayerAbility playerAbility;
 
-    // Sound effect variables
-    [SerializeField] AudioClip potionSound;
-    [SerializeField] AudioSource audioSource;
-
     void Start()
     {
         player = GetComponent<Player>();
         playerAbility = GetComponent<PlayerAbility>();
+        
+    }
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
-        // Initialize audio source
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
+    }
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        potionContainer.nbPotions = potionContainer.nbPotionsStart;
+
     }
 
     public void ConsumePotion(InputAction.CallbackContext context)
@@ -43,13 +49,6 @@ public class PlayerPotion : MonoBehaviour
             }
 
             potionContainer.nbPotions--;
-
-            // Play potion sound
-            if (potionSound != null)
-            {
-                audioSource.clip = potionSound;
-                audioSource.Play();
-            }
         }
     }
 }

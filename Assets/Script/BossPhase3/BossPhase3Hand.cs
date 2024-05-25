@@ -247,6 +247,11 @@ public class BossPhase3Hand : MonoBehaviour
             health -= damage;
 
         }
+        if (collision.tag == "damageZone")
+        {
+            boss.takeDamage(player.damage);
+            health -= player.damage;
+        }
     }
     public int howManyDamage() => UnityEngine.Random.Range(mindamage, maxdamage + 1);
 }

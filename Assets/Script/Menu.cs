@@ -29,4 +29,10 @@ public class Menu : MonoBehaviour
         StartCoroutine(Desactivate());
        
     }
+    public void deletePlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        Application.Quit();
+    }
 }

@@ -16,6 +16,7 @@ public class BossPhase3 : MonoBehaviour
     changeMusicPhase audioSource;
     [SerializeField] AudioClip music;
     BossGeneral bossGeneral;
+    
     void Start()
     {
         audioSource = GameObject.FindGameObjectWithTag("music").GetComponent<changeMusicPhase>();
@@ -29,8 +30,28 @@ public class BossPhase3 : MonoBehaviour
 
     void Update()
     {
-        Vector3 targetPosition = player.transform.position + _followOffset;
-        transform.position += (targetPosition - transform.position) * followSharpness;
+        if (health > 0)
+        {
+            Vector3 targetPosition = player.transform.position + _followOffset;
+            transform.position += (targetPosition - transform.position) * followSharpness;
+        }
+    }
+    IEnumerator death()
+    {
+        List<Rigidbody2D>  rigidbody2Ds = GetComponentsInChildren<Rigidbody2D>().ToList();
+        List<Collider2D> colliders = GetComponentsInChildren<Collider2D>().ToList();
+        BossPhase3AttacksManager attacksManager = GetComponentInParent<BossPhase3AttacksManager>();
+        attacksManager.fightHasEnded = true;
+        foreach (Rigidbody2D rb in rigidbody2Ds)
+        {
+            rb.isKinematic = false;
+        }
+        foreach (Collider2D col in colliders)
+        {
+            col.enabled = false;
+        }
+        yield return new WaitForSeconds(3f);
+        bossGeneral.bossDead();
     }
 
     public void takeDamage(int damage)
@@ -38,6 +59,11 @@ public class BossPhase3 : MonoBehaviour
         bossGeneral.vieRestant -= damage;
         health -= damage;
         healthBar.value = (float)health / startHealth;
+        if (health <= 0 || bossGeneral.vieRestant <= 0)
+        {
+            bossGeneral.vieRestant = 0;
+            StartCoroutine(death());
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

@@ -45,7 +45,6 @@ public class ShopManagerScript : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("score"))
         pourcentage = PlayerPrefs.GetInt("score");
-        print(pourcentage);
         PourcentageTxt.text = "Vous avez fait " + pourcentage + "% du boss";
     }
     public void AfficherShop()
